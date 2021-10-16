@@ -135,11 +135,11 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: e1c234450a386134fa835aa31e1baf88, type: 2}
+  m_GravityScale: 8
+  m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &2513500229079634475
 CircleCollider2D:
@@ -293,14 +293,17 @@ MonoBehaviour:
   m_groundCheck: {fileID: 6659666982796887723}
   m_ceilingCheck: {fileID: 2006929384775458706}
   m_crouchDisableCollider: {fileID: 582510813848949113}
-  m_runSpeed: 40
-  m_jumpForce: 450
-  m_crouchSpeedMultiplier: 0.36
+  m_runSpeed: 75
   m_movementSmoothingAmount: 0.05
+  m_jumpForce: 500
   m_canAirControl: 1
+  m_fallMultiplier: 3
+  m_lowJumpMultiplier: 2
+  m_lastGroundedDelay: 0.05
   m_whatIsGround:
     serializedVersion: 2
     m_Bits: 64
+  m_crouchSpeedMultiplier: 0.36
 --- !u!1 &2966291629256908804
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,7 +328,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2966291629256908804}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.93, z: 0}
+  m_LocalPosition: {x: 0, y: 0.832, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 315238575509754803}
@@ -355,7 +358,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3398776610673356838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.02, z: 0}
+  m_LocalPosition: {x: 0, y: -0.996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 315238575509754803}
