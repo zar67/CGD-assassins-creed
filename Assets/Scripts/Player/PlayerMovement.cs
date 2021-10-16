@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 
 	[Header("References")]
 	[SerializeField] private Rigidbody2D m_rigidbody = default;
+	[SerializeField] private PlayerWallSlidingCheck m_wallCheck = default;
 	[SerializeField] private Transform m_groundCheck = default;
 	[SerializeField] private Transform m_ceilingCheck = default;
 	[SerializeField] private Collider2D m_crouchDisableCollider = default;
@@ -133,6 +134,10 @@ public class PlayerMovement : MonoBehaviour
 		{
 			m_isGrounded = false;
 			m_rigidbody.AddForce(new Vector2(0f, m_jumpForce));
+		}
+		else if (jump && !m_isGrounded && m_wallCheck.CollidingWithWall())
+		{
+			m_rigidbody.AddForce(new Vector2(-m_jumpForce * 0.5f, m_jumpForce * 0.5f));
 		}
 
 		if (m_rigidbody.velocity.y < 0)
