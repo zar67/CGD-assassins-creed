@@ -21,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private bool m_canAirControl = false;
 	[SerializeField] private float m_fallMultiplier = 2.5f;
 	[SerializeField] private float m_lowJumpMultiplier = 2f;
-	[SerializeField] private float m_lastGroundedDelay;
 	[SerializeField] private LayerMask m_whatIsGround;
 
 	[Header("Crouching Configuration Values")]
@@ -36,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
 	private bool m_crouchingInput = false;
 
 	private bool m_wasCrouching = false;
-	private float m_lastTimeGrounded = 0;
 
 	public void HandleJump(InputAction.CallbackContext context)
 	{
@@ -131,10 +129,19 @@ public class PlayerMovement : MonoBehaviour
 			}
 		}
 
-		if (m_isGrounded && jump)
+		if (jump && m_isGrounded)
 		{
 			m_isGrounded = false;
 			m_rigidbody.AddForce(new Vector2(0f, m_jumpForce));
+		}
+
+		if (m_rigidbody.velocity.y < 0)
+		{
+			m_rigidbody.velocity += Vector2.up * Physics2D.gravity * (m_fallMultiplier - 1) * Time.deltaTime;
+		}
+		else if (m_rigidbody.velocity.y > 0 && !jump)
+		{
+			m_rigidbody.velocity += Vector2.up * Physics2D.gravity * (m_lowJumpMultiplier - 1) * Time.deltaTime;
 		}
 	}
 
