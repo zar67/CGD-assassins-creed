@@ -45,9 +45,9 @@ public class PlayerMovement : MonoBehaviour
 	private float m_movementInput = 0;
 	private bool m_jumpInput = false;
 	private bool m_jumpInputPressedThisFrame = false;
-	private bool m_crouchingInput = false;
+	[SerializeField] private bool m_crouchingInput = false;
 
-	private bool m_wasCrouching = false;
+	[SerializeField] private bool m_wasCrouching = false;
 
 	private bool m_canGrabWall = false;
 	private bool m_isGrabbingWall = false;
@@ -90,15 +90,6 @@ public class PlayerMovement : MonoBehaviour
 		// Ground Check
 		m_isGrounded = Physics2D.OverlapCircle(m_groundCheck.position, GROUNDED_RADIUS, m_whatIsGround);
 		
-		// Crouch Check
-		if (m_wasCrouching && !m_crouchingInput)
-		{
-			if (Physics2D.OverlapCircle(m_ceilingCheck.position, CEILING_RADIUS, m_whatIsGround))
-			{
-				m_crouchingInput = true;
-			}
-		}
-
 		// Wall Grabbing Check
 		m_canGrabWall = Physics2D.OverlapCircle(m_wallCheck.position, WALL_GRABBING_RADIUS, m_whatIsWall);
 	}
@@ -137,9 +128,20 @@ public class PlayerMovement : MonoBehaviour
 
 	private void UpdateCrouching(ref float movement)
 	{
+		bool crouch = m_crouchingInput;
+
+		// Crouch Check
+		if (!m_crouchingInput)
+		{
+			if (Physics2D.OverlapCircle(m_ceilingCheck.position, CEILING_RADIUS, m_whatIsGround))
+			{
+				crouch = true;
+			}
+		}
+
 		if (m_isGrounded || m_canAirControl)
 		{
-			if (m_crouchingInput)
+			if (crouch)
 			{
 				if (!m_wasCrouching)
 				{

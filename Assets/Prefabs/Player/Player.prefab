@@ -295,19 +295,8 @@ MonoBehaviour:
     m_Bits: 128
   m_crouchInputThreshold: 0.8
   m_crouchSpeedMultiplier: 0.36
-  m_canControl: 1
-  m_isGrounded: 0
-  m_isFacingRight: 1
-  m_velocity: {x: 0, y: 0, z: 0}
-  m_movementInput: 0
-  m_jumpInput: 0
-  m_jumpInputPressedThisFrame: 0
   m_crouchingInput: 0
   m_wasCrouching: 0
-  m_canGrabWall: 0
-  m_isGrabbingWall: 0
-  m_wallJumpTimer: 0
-  m_defaultGravityScale: 0
 --- !u!1 &320707397177488300
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +370,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 876444205943946264}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e1c234450a386134fa835aa31e1baf88, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

@@ -2267,17 +2267,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 364340460411831101, guid: 2f9d3ebe19ffd0f4aa3ccc21b8b0fc60, type: 3}
-      propertyPath: m_runSpeed
-      value: 350
-      objectReference: {fileID: 0}
-    - target: {fileID: 364340460411831101, guid: 2f9d3ebe19ffd0f4aa3ccc21b8b0fc60, type: 3}
-      propertyPath: m_wallJumpDuration
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 364340460411831101, guid: 2f9d3ebe19ffd0f4aa3ccc21b8b0fc60, type: 3}
-      propertyPath: m_wallGrabbingGravityMultiplier
-      value: 0.3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f9d3ebe19ffd0f4aa3ccc21b8b0fc60, type: 3}
