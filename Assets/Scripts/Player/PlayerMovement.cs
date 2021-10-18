@@ -85,7 +85,6 @@ public class PlayerMovement : MonoBehaviour
 	private void FixedUpdate()
 	{
 		bool wasGrounded = m_isGrounded;
-		m_isGrounded = false;
 
 		// Ground Check
 		m_isGrounded = Physics2D.OverlapCircle(m_groundCheck.position, GROUNDED_RADIUS, m_whatIsGround);
@@ -143,29 +142,14 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if (crouch)
 			{
-				if (!m_wasCrouching)
-				{
-					m_wasCrouching = true;
-				}
-
+				m_wasCrouching = true;
 				movement *= m_crouchSpeedMultiplier;
-
-				if (m_crouchCollider != null)
-				{
-					m_crouchCollider.enabled = false;
-				}
+				m_crouchCollider.enabled = false;
 			}
 			else
 			{
-				if (m_crouchCollider != null)
-				{
-					m_crouchCollider.enabled = true;
-				}
-
-				if (m_wasCrouching)
-				{
-					m_wasCrouching = false;
-				}
+				m_crouchCollider.enabled = true;
+				m_wasCrouching = false;
 			}
 		}
 	}
