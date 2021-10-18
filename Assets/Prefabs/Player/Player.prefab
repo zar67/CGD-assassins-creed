@@ -287,12 +287,27 @@ MonoBehaviour:
   m_whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  m_wallSlidingMultiplier: 0.7
+  m_wallGrabbingGravityMultiplier: 0.3
+  m_wallJumpDuration: 0.2
+  m_wallJumpHeightMultiplier: 1.5
   m_whatIsWall:
     serializedVersion: 2
     m_Bits: 128
   m_crouchInputThreshold: 0.8
   m_crouchSpeedMultiplier: 0.36
+  m_canControl: 1
+  m_isGrounded: 0
+  m_isFacingRight: 1
+  m_velocity: {x: 0, y: 0, z: 0}
+  m_movementInput: 0
+  m_jumpInput: 0
+  m_jumpInputPressedThisFrame: 0
+  m_crouchingInput: 0
+  m_wasCrouching: 0
+  m_canGrabWall: 0
+  m_isGrabbingWall: 0
+  m_wallJumpTimer: 0
+  m_defaultGravityScale: 0
 --- !u!1 &320707397177488300
 GameObject:
   m_ObjectHideFlags: 0

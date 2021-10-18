@@ -36,25 +36,25 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private float m_crouchInputThreshold = 0.8f;
 	[Range(0, 1)] [SerializeField] private float m_crouchSpeedMultiplier = 0.36f;
 
-	[SerializeField] private bool m_canControl = true;
+	private bool m_canControl = true;
 
-	[SerializeField] private bool m_isGrounded = false;
-	[SerializeField] private bool m_isFacingRight = true;
-	[SerializeField] private Vector3 m_velocity = Vector3.zero;
+	private bool m_isGrounded = false;
+	private bool m_isFacingRight = true;
+	private Vector3 m_velocity = Vector3.zero;
 
-	[SerializeField] private float m_movementInput = 0;
-	[SerializeField] private bool m_jumpInput = false;
-	[SerializeField] private bool m_jumpInputPressedThisFrame = false;
-	[SerializeField] private bool m_crouchingInput = false;
+	private float m_movementInput = 0;
+	private bool m_jumpInput = false;
+	private bool m_jumpInputPressedThisFrame = false;
+	private bool m_crouchingInput = false;
 
-	[SerializeField] private bool m_wasCrouching = false;
+	private bool m_wasCrouching = false;
 
-	[SerializeField] private bool m_canGrabWall = false;
-	[SerializeField] private bool m_isGrabbingWall = false;
+	private bool m_canGrabWall = false;
+	private bool m_isGrabbingWall = false;
 
-	[SerializeField] private float m_wallJumpTimer = 0;
+	private float m_wallJumpTimer = 0;
 
-	[SerializeField] private float m_defaultGravityScale;
+	private float m_defaultGravityScale;
 
     private void Awake()
     {
