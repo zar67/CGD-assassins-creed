@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
+    [SerializeField] private GameObject m_swordAnim;
     Rigidbody2D m_rig2D;
     PlayerData m_playerData; 
 
@@ -21,7 +22,10 @@ public class PlayerCombat : MonoBehaviour
 
     const float m_SNEAK_ATTACK_RANGE = 15.0f;
     const uint m_SCORE_INCREMENT = 25;
+    const float m_SNEAK_ANIM_TIMER = 0.6f; // cant take damage once taken damage for x amount of time
+    float m_currentSneakTimer = 0.0f;
 
+    int a = 0;
 	private void Start()
 	{
 		m_rig2D = gameObject.GetComponent<Rigidbody2D>();
@@ -36,9 +40,11 @@ public class PlayerCombat : MonoBehaviour
             case CombatState.ctIDLE:
             {
                 GameObject enemyToAttack = TestSneakAttackRange();
-                if(enemyToAttack != null)
+                if(a == 0)//if(enemyToAttack != null)
                 {
                     m_combatState = CombatState.ctSNEAK_ATTACK;
+                    m_swordAnim.SetActive(true);
+                    a++;
 		        }
 			}break;
             case CombatState.ctJUMP_ATTACK:
@@ -47,7 +53,15 @@ public class PlayerCombat : MonoBehaviour
 			}break;
             case CombatState.ctSNEAK_ATTACK:
             {
-
+                if (m_currentSneakTimer < m_SNEAK_ANIM_TIMER)
+                {
+                    m_currentSneakTimer += Time.deltaTime;
+                }
+                else
+                {
+                    m_swordAnim.SetActive(false);
+                    m_combatState = CombatState.ctIDLE;
+		        }
 			}break;
             case CombatState.ctATTACKING:
             {
@@ -63,6 +77,23 @@ public class PlayerCombat : MonoBehaviour
             m_currentDamageTime += Time.deltaTime;
 		}
         m_canTakeDamage = true;
+        yield return new WaitForSeconds(0.1f);
+	}
+
+    IEnumerator SneakAttackAnimtimer()
+    {
+        print("START ANIM");
+        if (m_currentSneakTimer < m_SNEAK_ANIM_TIMER)
+        {
+            m_currentSneakTimer += Time.deltaTime;
+            m_combatState = CombatState.ctIDLE;
+        }
+        else
+        {
+            m_swordAnim.SetActive(false);
+		}
+        print("END ANIM");
+        
         yield return new WaitForSeconds(0.1f);
 	}
 
