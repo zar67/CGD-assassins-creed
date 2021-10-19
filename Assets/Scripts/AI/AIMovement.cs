@@ -74,11 +74,6 @@ public class AIMovement : MonoBehaviour
             m_rigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
         }
-
-        //if (col.gameObject.tag == "Player")
-        //{
-        //    Destroy(gameObject);
-        //}
     }
 
     private void UpdateMovement(float move)

@@ -14,8 +14,8 @@ TagManager:
   - Platforms
   - Walls
   - AI_CheckPlatform
-  - 
-  - 
+  - AI
+  - AI_Death
   - 
   - 
   - 

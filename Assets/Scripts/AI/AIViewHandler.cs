@@ -13,7 +13,6 @@ public class AIViewHandler : MonoBehaviour
         if (_lookingLeft == lookingLeft) return;
 
         lookingLeft = _lookingLeft;
-        Debug.Log(transform.localPosition);
         transform.localPosition = new Vector3(-transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
     }
 
