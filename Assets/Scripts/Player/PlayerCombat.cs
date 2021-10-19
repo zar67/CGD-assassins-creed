@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-    public static float m_health = 100.0f;
+    Rigidbody2D m_rig2D;
+    PlayerData m_playerData; 
 
     const float m_DAMAGE_TIMER = 2.0f; // cant take damage once taken damage for x amount of time
     float m_currentDamageTime = 0.0f;
@@ -19,12 +20,17 @@ public class PlayerCombat : MonoBehaviour
     CombatState m_combatState = CombatState.ctIDLE;
 
     const float m_SNEAK_ATTACK_RANGE = 15.0f;
+    const uint m_SCORE_INCREMENT = 25;
 
+	private void Start()
+	{
+		m_rig2D = gameObject.GetComponent<Rigidbody2D>();
+        m_playerData = gameObject.GetComponent<PlayerData>();
+	}
 
-    // Update is called once per frame
-    void Update()
+	// Update is called once per frame
+	void Update()
     {
-    
         switch(m_combatState)
         {
             case CombatState.ctIDLE:
@@ -66,22 +72,35 @@ public class PlayerCombat : MonoBehaviour
         {
             m_currentDamageTime = 0.0f;
             m_canTakeDamage = false;
-            m_health -= _damage;
+            m_playerData.DamageTaken(_damage);
             StartCoroutine(DamageTakenTimer());
 		}
 	}
 
 	GameObject TestSneakAttackRange()
 	{ 
-       foreach(GameObject enemy in allEnemies)//@@@ need to get reference of all enemies
+       /*foreach(GameObject enemy in allEnemies)//@@@ need to get reference of all enemies
        {
             bool inRange = Vector2.Distance(enemy.transform.position, gameObject.transform.position) < m_SNEAK_ATTACK_RANGE;
-            bool enemyFacingOtherWay = enemy.GetComponent<Rigidbody2D>().velocity != gameObject.GetComponent<Rigidbody2D>().velocity;
+            bool enemyFacingOtherWay = enemy.GetComponent<Rigidbody2D>().velocity != m_rig2D.velocity;
             if(inRange && enemyFacingOtherWay)
             {
                 return enemy;
 			}
-	   }
+	   }*/
        return null;
     }
+    void AnimateSneakAttack()
+    {
+
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+        //if hit enemy and velocity.y = -1 then you jumped on it
+		if(collision.gameObject.tag == "Enemy" && m_rig2D.velocity.y < 0.0f)
+        {
+            
+		}
+	}
 }
