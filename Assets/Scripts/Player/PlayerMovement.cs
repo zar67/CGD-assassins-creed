@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
 	[Header("References")]
 	[SerializeField] private Rigidbody2D m_rigidbody = default;
+	[SerializeField] private Animator m_animator = default;
 	[SerializeField] private Transform m_groundCheck = default;
 	[SerializeField] private Transform m_ceilingCheck = default;
 	[SerializeField] private Transform m_wallCheck = default;
@@ -45,9 +46,9 @@ public class PlayerMovement : MonoBehaviour
 	private float m_movementInput = 0;
 	private bool m_jumpInput = false;
 	private bool m_jumpInputPressedThisFrame = false;
-	[SerializeField] private bool m_crouchingInput = false;
+	private bool m_crouchingInput = false;
 
-	[SerializeField] private bool m_wasCrouching = false;
+	private bool m_wasCrouching = false;
 
 	private bool m_canGrabWall = false;
 	private bool m_isGrabbingWall = false;
@@ -115,6 +116,8 @@ public class PlayerMovement : MonoBehaviour
 			}
 		}
 
+		UpdateAnimator();
+
 		// Check if we are facing the right direction
 		if ((m_movementInput > 0 && !m_isFacingRight) ||
 			(m_movementInput < 0 && m_isFacingRight))
@@ -123,6 +126,12 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 		m_jumpInputPressedThisFrame = false;
+	}
+
+	private void UpdateAnimator()
+	{
+		m_animator.SetFloat("Speed", Mathf.Abs(m_rigidbody.velocity.x));
+		m_animator.SetBool("Jump", !m_isGrounded);
 	}
 
 	private void UpdateCrouching(ref float movement)

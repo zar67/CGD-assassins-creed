@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 315238575261293139}
   - component: {fileID: 315238575261293138}
+  - component: {fileID: 6483695081972742365}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -82,6 +83,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &6483695081972742365
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315238575261293136}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c46f5a460fe0eb94c8892f72e6b052fd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &315238575509754800
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,7 +181,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 8
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e1c234450a386134fa835aa31e1baf88, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -273,6 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_rigidbody: {fileID: 315238575509754797}
+  m_animator: {fileID: 6483695081972742365}
   m_groundCheck: {fileID: 6659666982796887723}
   m_ceilingCheck: {fileID: 2006929384775458706}
   m_wallCheck: {fileID: 8045735487820802587}
@@ -295,8 +316,6 @@ MonoBehaviour:
     m_Bits: 128
   m_crouchInputThreshold: 0.8
   m_crouchSpeedMultiplier: 0.36
-  m_crouchingInput: 0
-  m_wasCrouching: 0
 --- !u!1 &320707397177488300
 GameObject:
   m_ObjectHideFlags: 0
