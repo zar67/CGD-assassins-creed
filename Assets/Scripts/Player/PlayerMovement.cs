@@ -160,6 +160,7 @@ public class PlayerMovement : MonoBehaviour
 		m_animator.SetBool("Jump", !m_isGrounded);
 		m_animator.SetBool("Crouch", m_crouchingInput || m_forceCrouch);
 		m_animator.SetBool("Hang", m_isHanging);
+		m_animator.SetBool("GrabbingWall", m_isGrabbingWall);
 	}
 
 	private void UpdateCrouching(ref float movement)
