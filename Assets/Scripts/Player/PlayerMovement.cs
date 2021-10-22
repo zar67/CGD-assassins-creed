@@ -110,6 +110,8 @@ public class PlayerMovement : MonoBehaviour
 
 		// Crouch Check
 		m_forceCrouch = Physics2D.OverlapCircle(m_ceilingCheck.position, CEILING_RADIUS, m_whatIsGround);
+		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_ceilingCheck.position, CEILING_RADIUS, m_whatIsGround);
+		Debug.Log(m_forceCrouch);
 
 		// Can Hang Check
 		m_canHangNearby = Physics2D.OverlapCircle(m_ceilingCheck.position, CEILING_RADIUS, m_whatIsClimbablePlatforms);
@@ -158,6 +160,8 @@ public class PlayerMovement : MonoBehaviour
 	{
 		m_animator.SetFloat("Speed", Mathf.Abs(m_rigidbody.velocity.x));
 		m_animator.SetBool("Jump", !m_isGrounded);
+		m_animator.SetBool("Crouch", m_crouchingInput || m_forceCrouch);
+		m_animator.SetBool("Hang", m_isHanging);
 	}
 
 	private void UpdateCrouching(ref float movement)
