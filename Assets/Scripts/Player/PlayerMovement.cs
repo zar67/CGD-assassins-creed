@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
 	public const float GROUNDED_RADIUS = 0.05f;
-	public const float CEILING_RADIUS = 0.05f;
+	public const float CEILING_RADIUS = 0.5f;
 	public const float WALL_GRABBING_RADIUS = 0.05f;
 
 	[Header("References")]
@@ -110,8 +110,6 @@ public class PlayerMovement : MonoBehaviour
 
 		// Crouch Check
 		m_forceCrouch = Physics2D.OverlapCircle(m_ceilingCheck.position, CEILING_RADIUS, m_whatIsGround);
-		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_ceilingCheck.position, CEILING_RADIUS, m_whatIsGround);
-		Debug.Log(m_forceCrouch);
 
 		// Can Hang Check
 		m_canHangNearby = Physics2D.OverlapCircle(m_ceilingCheck.position, CEILING_RADIUS, m_whatIsClimbablePlatforms);
