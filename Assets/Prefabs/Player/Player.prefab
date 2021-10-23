@@ -301,7 +301,7 @@ MonoBehaviour:
   m_mainCollider: {fileID: 2016270122254609377}
   m_crouchCollider: {fileID: 1346490076033850589}
   m_hangingCollider: {fileID: 9053794136953104028}
-  m_runSpeed: 350
+  m_runSpeed: 450
   m_movementSmoothingAmount: 0.05
   m_jumpInputThreshold: 0
   m_jumpForce: 675
