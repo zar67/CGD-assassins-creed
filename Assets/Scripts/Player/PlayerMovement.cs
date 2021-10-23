@@ -17,8 +17,7 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private Transform m_wallCheck = default;
 
 	[Header("Colliders")]
-	[SerializeField] private Collider2D m_mainCollider = default;
-	[SerializeField] private Collider2D m_crouchCollider = default;
+	[SerializeField] private BoxCollider2D m_mainCollider = default;
 	[SerializeField] private Collider2D m_hangingCollider = default;
 
 	[Header("Movement Configuration Values")]
@@ -67,9 +66,9 @@ public class PlayerMovement : MonoBehaviour
 	private bool m_isGrabbingWall = false;
 	private float m_wallJumpTimer = 0;
 
-	[SerializeField] private bool m_isHanging = false;
-	[SerializeField] private Collider2D m_platformHangingOn = null;
-	[SerializeField] private bool m_canHangNearby = false;
+	private bool m_isHanging = false;
+	private Collider2D m_platformHangingOn = null;
+	private bool m_canHangNearby = false;
 
     private void Awake()
     {
@@ -116,10 +115,7 @@ public class PlayerMovement : MonoBehaviour
 
 		// Wall Grabbing Check
 		m_canGrabWall = Physics2D.OverlapCircle(m_wallCheck.position, WALL_GRABBING_RADIUS, m_whatIsWall);
-	}
 
-	private void Update()
-	{
 		if (m_canControl)
 		{
 			float moveDir = m_movementInput * m_runSpeed * Time.deltaTime;
@@ -172,11 +168,13 @@ public class PlayerMovement : MonoBehaviour
 			if (crouch)
 			{
 				movement *= m_crouchSpeedMultiplier;
-				m_crouchCollider.enabled = false;
+				m_mainCollider.size = new Vector2(1, 0.9f);
+				m_mainCollider.offset = new Vector2(0, -0.55f);
 			}
 			else
 			{
-				m_crouchCollider.enabled = true;
+				m_mainCollider.size = new Vector2(1, 1.9f);
+				m_mainCollider.offset = new Vector2(0, -0.06f);
 			}
 		}
 	}
@@ -202,7 +200,7 @@ public class PlayerMovement : MonoBehaviour
 			if (m_jumpInput && m_jumpInputPressedThisFrame)
 			{
 				m_wallJumpTimer = m_wallJumpDuration;
-				m_rigidbody.AddForce(new Vector2(-(m_movementInput * m_jumpForce), m_jumpForce * m_wallJumpHeightMultiplier));
+				m_rigidbody.AddForce(new Vector2(-(m_movementInput * m_jumpForce * 6f), m_jumpForce * m_wallJumpHeightMultiplier));
 				Flip();
 
 				m_rigidbody.gravityScale = m_defaultGravityScale;
@@ -221,7 +219,7 @@ public class PlayerMovement : MonoBehaviour
 		if (m_jumpInput && m_isGrounded)
 		{
 			m_isGrounded = false;
-			m_rigidbody.AddForce(new Vector2(0f, m_jumpForce));
+			m_rigidbody.AddForce(new Vector2(0f, m_jumpForce * 10f));
 		}
 
 		if (m_rigidbody.velocity.y < 0)
@@ -238,7 +236,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (m_isGrounded || m_canAirControl)
 		{
-			Vector3 targetVelocity = new Vector2(move * 10f, m_rigidbody.velocity.y);
+			Vector3 targetVelocity = new Vector2(move, m_rigidbody.velocity.y);
 			m_rigidbody.velocity = Vector3.SmoothDamp(m_rigidbody.velocity, targetVelocity, ref m_velocity, m_movementSmoothingAmount);
 		}
 	}
@@ -296,8 +294,6 @@ public class PlayerMovement : MonoBehaviour
 	private void SetCollidersForHanging(bool hanging)
 	{
 		Physics2D.IgnoreCollision(m_mainCollider, m_platformHangingOn, hanging);
-		Physics2D.IgnoreCollision(m_crouchCollider, m_platformHangingOn, hanging);
-
 		m_hangingCollider.enabled = hanging;
 	}
 
