@@ -11,6 +11,8 @@ public class PlayerCombat : MonoBehaviour
     const float m_DAMAGE_TIMER = 2.0f; // cant take damage once taken damage for x amount of time
     float m_currentDamageTime = 0.0f;
     bool m_canTakeDamage = true;
+    float m_flashTime = 0.2f;
+    float m_currentFlashTime = 0.0f;
     enum CombatState 
     {
         ctIDLE = 0,
@@ -24,6 +26,7 @@ public class PlayerCombat : MonoBehaviour
     const uint m_SCORE_INCREMENT = 25;
     const float m_SNEAK_ANIM_TIMER = 0.8f; // cant take damage once taken damage for x amount of time
     float m_currentSneakTimer = 0.0f;
+
 
 	private void Start()
 	{
@@ -45,6 +48,9 @@ public class PlayerCombat : MonoBehaviour
                     m_swordAnim.SetActive(true);
                     Destroy(enemyToAttack);
 		        }
+
+                if(m_canTakeDamage == false)
+                    FlashPlayer();
 			}break;
             case CombatState.ctJUMP_ATTACK:
             {
@@ -69,16 +75,6 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-    IEnumerator DamageTakenTimer()
-    {
-        while(m_currentDamageTime < m_DAMAGE_TIMER)
-        {
-            m_currentDamageTime += Time.deltaTime;
-		}
-        m_canTakeDamage = true;
-        yield return new WaitForSeconds(0.1f);
-	}
-
     IEnumerator SneakAttackAnimtimer()
     {
         print("START ANIM");
@@ -102,11 +98,34 @@ public class PlayerCombat : MonoBehaviour
         {
             m_currentDamageTime = 0.0f;
             m_canTakeDamage = false;
+            m_currentFlashTime = 0.0f;
             m_playerData.DamageTaken(_damage);
-            StartCoroutine(DamageTakenTimer());
-            
-            //Flash Sprite Red
+		}
+	}
 
+    void FlashPlayer()
+    {
+        m_currentFlashTime += Time.deltaTime;
+        m_currentDamageTime += Time.deltaTime;
+
+        if(m_currentFlashTime < m_flashTime)
+            return;
+        if(m_currentDamageTime > m_DAMAGE_TIMER)
+        {
+            m_canTakeDamage = true;
+            gameObject.GetComponentInChildren<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f);
+            return;
+		}
+
+        m_currentFlashTime = 0.0f;
+        Color playerCol = gameObject.GetComponentInChildren<SpriteRenderer>().color;
+        if(playerCol.g == 1.0f)
+        {
+            gameObject.GetComponentInChildren<SpriteRenderer>().color = new Color(1.0f, 0.0f, 0.0f);
+		}
+        else
+        {
+            gameObject.GetComponentInChildren<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f);
 		}
 	}
 
@@ -148,7 +167,7 @@ public class PlayerCombat : MonoBehaviour
 		}
         else if(name == "DeathCollider" && m_combatState != CombatState.ctSNEAK_ATTACK)
         {
-            PlayerHit(25);
+            PlayerHit(20);
 		}
 	}
 
