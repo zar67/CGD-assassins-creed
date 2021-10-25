@@ -6,7 +6,7 @@ public class PlayerData : MonoBehaviour
 {
     const float m_START_HEALTH = 100.0f;
     float m_health = 0.0f;
-    int m_score = 0;
+    
 
     enum PlayerState 
     {
@@ -25,10 +25,7 @@ public class PlayerData : MonoBehaviour
         
     }
 
-    //Score Functions
-    public void IncreaseScore(int _value){m_score += _value;}
-    public void DecreseScore(int _value){m_score -= _value;}
-    public void ResetScore(){m_score = 0;}
+    
 
     //Health Functions
     public void DamageTaken(float _damage)
@@ -38,7 +35,11 @@ public class PlayerData : MonoBehaviour
             SetPlayerDead();
     }
     public void ResetHealth(){m_health= m_START_HEALTH;}
-    public void SetPlayerDead(){m_playerState = PlayerState.psDEAD;}
+    public void SetPlayerDead()
+    {
+        m_playerState = PlayerState.psDEAD;
+        SceneControl.LoadGameOver();
+    }
     private void SetPlayerAlive(){m_playerState = PlayerState.psALIVE;}
     private bool IsDead(){return m_health <= 0.0f;}
     
