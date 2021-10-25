@@ -389,10 +389,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c44751b62880c7a4886f65e1e6a02c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_scoreTxt: {fileID: 0}
-  m_highScoreTxt: {fileID: 0}
-  m_playAgainBttn: {fileID: 0}
-  m_quitBttn: {fileID: 0}
+  m_scoreTxt: {fileID: 2105074573}
+  m_highScoreTxt: {fileID: 2018380790}
+  m_playAgainBttn: {fileID: 1444688920}
+  m_quitBttn: {fileID: 1858251281}
 --- !u!4 &1293695596
 Transform:
   m_ObjectHideFlags: 0

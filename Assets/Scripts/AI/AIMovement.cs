@@ -24,6 +24,8 @@ public class AIMovement : MonoBehaviour
 
     private float timeBeforeFlippingRemaining = 0f;
 
+    public bool IsMovingLeft(){return movingLeft;}
+
     // Start is called before the first frame update
     void Start()
     {
