@@ -5,9 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneControl
 {
-    static string menuSceneName = "";
-    static string gameOverSceneName = "";
-
+    static string menuSceneName = "MainScene";
+    static string gameOverSceneName = "GameOverScene";
 
     public static void LoadMainMenu()
     {
@@ -16,5 +15,9 @@ public class SceneControl
     public static void LoadGameOver()
     {
         SceneManager.LoadScene(gameOverSceneName);
+	}
+    public static void LoadPlay()
+    {
+
 	}
 }

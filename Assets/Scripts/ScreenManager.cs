@@ -39,8 +39,9 @@ public class ScreenManager : MonoBehaviour
 
     void OnPlay()
     {
-        
+        SceneControl.LoadPlay();
 	}
+
     void OnQuit()
     {
         Application.Quit();
