@@ -20,12 +20,11 @@ public class PlayerCombat : MonoBehaviour
     }
     CombatState m_combatState = CombatState.ctIDLE;
 
-    const float m_SNEAK_ATTACK_RANGE = 15.0f;
+    const float m_SNEAK_ATTACK_RANGE = 2.0f;
     const uint m_SCORE_INCREMENT = 25;
-    const float m_SNEAK_ANIM_TIMER = 0.6f; // cant take damage once taken damage for x amount of time
+    const float m_SNEAK_ANIM_TIMER = 0.8f; // cant take damage once taken damage for x amount of time
     float m_currentSneakTimer = 0.0f;
 
-    int a = 0;
 	private void Start()
 	{
 		m_rig2D = gameObject.GetComponent<Rigidbody2D>();
@@ -40,16 +39,16 @@ public class PlayerCombat : MonoBehaviour
             case CombatState.ctIDLE:
             {
                 GameObject enemyToAttack = TestSneakAttackRange();
-                if(a == 0)//if(enemyToAttack != null)
+                if(enemyToAttack != null)
                 {
                     m_combatState = CombatState.ctSNEAK_ATTACK;
                     m_swordAnim.SetActive(true);
-                    a++;
+                    Destroy(enemyToAttack);
 		        }
 			}break;
             case CombatState.ctJUMP_ATTACK:
             {
-                
+                //m_combatState = CombatState.ctIDLE;
 			}break;
             case CombatState.ctSNEAK_ATTACK:
             {
@@ -86,7 +85,7 @@ public class PlayerCombat : MonoBehaviour
         if (m_currentSneakTimer < m_SNEAK_ANIM_TIMER)
         {
             m_currentSneakTimer += Time.deltaTime;
-            m_combatState = CombatState.ctIDLE;
+            //m_combatState = CombatState.ctIDLE;
         }
         else
         {
@@ -105,33 +104,52 @@ public class PlayerCombat : MonoBehaviour
             m_canTakeDamage = false;
             m_playerData.DamageTaken(_damage);
             StartCoroutine(DamageTakenTimer());
+            
+            //Flash Sprite Red
+
 		}
 	}
 
 	GameObject TestSneakAttackRange()
 	{ 
-       /*foreach(GameObject enemy in allEnemies)//@@@ need to get reference of all enemies
+        // cant do sneak attack if falling
+        if(m_rig2D.velocity.y < 0)
+            return null;
+
+       Collider2D[] allColliders = Physics2D.OverlapCircleAll(gameObject.transform.position, m_SNEAK_ATTACK_RANGE);
+       foreach(var col in allColliders)
        {
-            bool inRange = Vector2.Distance(enemy.transform.position, gameObject.transform.position) < m_SNEAK_ATTACK_RANGE;
-            bool enemyFacingOtherWay = enemy.GetComponent<Rigidbody2D>().velocity != m_rig2D.velocity;
-            if(inRange && enemyFacingOtherWay)
+            if(col.gameObject.tag == "Enemy" && CheckAIDirection(col.gameObject.GetComponent<AIMovement>()))
             {
-                return enemy;
+                return col.gameObject;
 			}
-	   }*/
+       }
        return null;
     }
-    void AnimateSneakAttack()
-    {
 
+    // return true if AI is looking away from player
+    bool CheckAIDirection(AIMovement _aiMovement)
+    {
+        bool aiMovingLeft = _aiMovement.IsMovingLeft();
+        if((aiMovingLeft && m_rig2D.velocity.x < 0.0f) || (!aiMovingLeft && m_rig2D.velocity.x > 0.0f))
+            return true;
+
+        return false;
 	}
 
-	private void OnCollisionEnter2D(Collision2D collision)
+	void OnTriggerEnter2D(Collider2D collider)
 	{
+        string name = collider.gameObject.name;
+        //Debug.Log("Player Hit : " + name);
         //if hit enemy and velocity.y = -1 then you jumped on it
-		if(collision.gameObject.tag == "Enemy" && m_rig2D.velocity.y < 0.0f)
+		if(name == "DeathCollider" && m_rig2D.velocity.y < 0.0f)
         {
-            
+            Destroy(collider.gameObject.transform.parent.gameObject);
+		}
+        else if(name == "DeathCollider" && m_combatState != CombatState.ctSNEAK_ATTACK)
+        {
+            PlayerHit(25);
 		}
 	}
+
 }
