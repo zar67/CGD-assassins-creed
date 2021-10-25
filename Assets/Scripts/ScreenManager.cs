@@ -24,6 +24,7 @@ public class ScreenManager : MonoBehaviour
             m_playBttn = m_playOBJ.GetComponent<Button>();
             m_quitBttn = m_quitOBJ.GetComponent<Button>();
             m_highScoreTxt = m_highScoreOBJ.GetComponent<Text>();
+            m_highScoreTxt.text = ScoreManager.HighScore().ToString();
 
             if(m_playBttn)
                 m_playBttn.onClick.AddListener(delegate{OnPlay();});
