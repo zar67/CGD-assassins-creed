@@ -6,14 +6,21 @@ public class AIViewHandler : MonoBehaviour
 {
     [SerializeField] private AIMovement AIMove = default;
     [SerializeField] private AIVisionHandler VHandler = default;
-    [SerializeField] private float stopDistanceWall = 3.0f;
-    [SerializeField] private float stopDistancePlatform = 1.0f;
-    [SerializeField] private float visionPlayer = 4.0f;
+    private float stopDistanceWall = 3.0f;
+    private float stopDistancePlatform = 1.0f;
+    private float visionPlayer = 4.0f;
 
     private bool lookingLeft = false;
     private bool lookForWallsAndPlatforms = true;
     private float actualVision = 4.0f;
     private bool foundPlayer = false;
+
+    public void SetUpHandler(float _stopDistanceWall, float _stopDistPlatform, float _visionPlayer)
+    {
+        stopDistanceWall = _stopDistanceWall;
+        stopDistancePlatform = _stopDistPlatform;
+        visionPlayer = _visionPlayer;
+    }
 
     void FixedUpdate()
     {

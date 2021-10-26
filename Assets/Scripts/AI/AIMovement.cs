@@ -20,6 +20,11 @@ public class AIMovement : MonoBehaviour
     [SerializeField] private float timeBfrRushingPlayer = 0.3f;
     [SerializeField] private float playerFoundSpeed = 400f;
 
+    [Header("AI Vision")]
+    [SerializeField] private float stopDistanceWall = 3.0f;
+    [SerializeField] private float stopDistancePlatform = 1.0f;
+    [SerializeField] private float visionPlayer = 5.5f;
+
     private Vector3 m_velocity = Vector3.zero;
 
     private bool movingLeft = false;
@@ -40,6 +45,9 @@ public class AIMovement : MonoBehaviour
     {
         timeBeforeFlippingRemaining = timeBeforeFlipping;
         timeBeforeRushRemaining = timeBfrRushingPlayer;
+
+        viewHandlerBottom.SetUpHandler(stopDistanceWall, stopDistancePlatform, visionPlayer);
+        viewHandlerTop.SetUpHandler(stopDistanceWall, stopDistancePlatform, visionPlayer);
     }
 
     // Update is called once per frame
