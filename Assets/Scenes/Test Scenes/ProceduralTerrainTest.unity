@@ -316,7 +316,6 @@ MonoBehaviour:
   - {fileID: 3962877593123429916, guid: a3953fabc3baef44fa065ecc6db4a7b7, type: 3}
   DISTANCE_FROM_LAST_PART: 1
   SPAWN_DISTANCE: 50
-  DESTROY_DISTANCE: 20
 --- !u!1 &781521927
 GameObject:
   m_ObjectHideFlags: 0

@@ -2034,6 +2034,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endPosition: {fileID: 590548352720144319}
+  terrainHeight: 0
 --- !u!1 &6326737328274992574
 GameObject:
   m_ObjectHideFlags: 0
