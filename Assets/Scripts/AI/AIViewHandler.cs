@@ -15,6 +15,11 @@ public class AIViewHandler : MonoBehaviour
     private float actualVision = 4.0f;
     private bool foundPlayer = false;
 
+    public bool HasFoundPlayer()
+    {
+        return foundPlayer;
+    }
+
     public void SetUpHandler(float _stopDistanceWall, float _stopDistPlatform, float _visionPlayer)
     {
         stopDistanceWall = _stopDistanceWall;

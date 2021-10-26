@@ -13,12 +13,14 @@ public class AIMovement : MonoBehaviour
     [SerializeField] private AIViewHandler viewHandlerTop = default;
     [SerializeField] private SpriteRenderer spr = default;
     [SerializeField] private GameObject fndMark = default;
+    [SerializeField] private FloorCheck floorCheck = default;
 
     [Header("Movement")]
     [Range(0, 0.3f)] [SerializeField] private float movementSmoothingAmount = 0.05f;
     [SerializeField] private float movementSpeed = 200f;
     [SerializeField] private float timeBfrRushingPlayer = 0.3f;
     [SerializeField] private float playerFoundSpeed = 400f;
+    [SerializeField] private float m_jumpForce = 150f;
 
     [Header("AI Vision")]
     [SerializeField] private float stopDistanceWall = 3.0f;
@@ -36,6 +38,8 @@ public class AIMovement : MonoBehaviour
     private bool playerFound = false;
     private bool playerDir = false;
     private float timeBeforeRushRemaining = 0;
+
+    private bool jumped = false;
 
     public bool IsMovingLeft(){return movingLeft;}
     public bool HasSeenPlayer() { return playerFound; }
@@ -61,7 +65,6 @@ public class AIMovement : MonoBehaviour
         {
             NormalMovement();
         }
-        
     }
 
     #region Movement Region
@@ -79,10 +82,17 @@ public class AIMovement : MonoBehaviour
             FlipAi();
         }
 
-        if (moving)
-        {
-            UpdateMovement((movingLeft ? -1 : 1) * playerFoundSpeed * Time.deltaTime);
-        }
+        UpdateMovement((movingLeft ? -1 : 1) * playerFoundSpeed * Time.deltaTime);
+
+        //if (!viewHandlerBottom.HasFoundPlayer() && viewHandlerTop.HasFoundPlayer())
+        //{
+        //    if (floorCheck.TouchingFloor() && !jumped)
+        //    {
+        //        jumped = true;
+        //        m_rigidbody.constraints = RigidbodyConstraints2D.None;
+        //        m_rigidbody.AddForce(new Vector2((movingLeft ? -50f : 50f), m_jumpForce * 10f));
+        //    }
+        //}
     }
 
     void NormalMovement()
@@ -159,9 +169,10 @@ public class AIMovement : MonoBehaviour
 
     public void FoundPlayer(bool _playerDir)
     {
-        playerFound = true;
         playerDir = _playerDir;
-        FoundPlayerVisuals();
+        if (!playerFound) FoundPlayerVisuals();
+
+        playerFound = true;
     }
 
     void FoundPlayerVisuals()
@@ -179,17 +190,23 @@ public class AIMovement : MonoBehaviour
         fndMark.SetActive(false);
     }
 
-    #endregion 
+    #endregion
 
-    void OnCollisionEnter2D(Collision2D col)
+    #region Floor Check
+
+    public void TouchedFloor()
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("Platforms"))
-        {
-            m_rigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
-
-            float y = transform.position.y % 1.0f;
-
-            transform.position = new Vector3(transform.position.x, (transform.position.y - y) + (y < 0.5f ? 0.02f : 1.02f), transform.position.z);
-        }
+        m_rigidbody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+        
+        float y = transform.position.y % 1.0f;
+        transform.position = new Vector3(transform.position.x, (transform.position.y - y) + (y < 0.5f ? 0.02f : 1.02f), transform.position.z);
     }
+
+    public void LeftFloor()
+    {
+        m_rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        jumped = false;
+    }
+
+    #endregion 
 }
