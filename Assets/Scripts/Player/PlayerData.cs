@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
-    const float m_START_HEALTH = 100.0f;
+    const float m_START_HEALTH = 1.0f;
     float m_health = 0.0f;
     
     enum PlayerState 

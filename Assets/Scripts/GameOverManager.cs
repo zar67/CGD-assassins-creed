@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameOverManager : MonoBehaviour
 {
-    [SerializeField] Text m_scoreTxt;
-    [SerializeField] Text m_highScoreTxt;
+    [SerializeField] TextMeshProUGUI m_scoreTxt;
+    [SerializeField] TextMeshProUGUI m_highScoreTxt;
     [SerializeField] Button m_playAgainBttn;
     [SerializeField] Button m_quitBttn;
 

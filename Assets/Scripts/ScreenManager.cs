@@ -1,40 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ScreenManager : MonoBehaviour
 {
-    [SerializeField] GameObject m_playOBJ;
-    [SerializeField] GameObject m_quitOBJ;
-    [SerializeField] GameObject m_highScoreOBJ;
-    Button m_playBttn;
-    Button m_quitBttn;
-    Text m_highScoreTxt;
+    [SerializeField] private Button m_playButton;
+    [SerializeField] private Button m_quitButton;
+    [SerializeField] private TextMeshProUGUI m_highScoreText;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        if(m_playOBJ == null || m_quitOBJ == null || m_highScoreOBJ == null)
+        if(m_playButton == null || m_quitButton == null || m_highScoreText == null)
         {
             print("ERROR : ScreenManager() -> null objects");
 		}
         else
         {
-            m_playBttn = m_playOBJ.GetComponent<Button>();
-            m_quitBttn = m_quitOBJ.GetComponent<Button>();
-            m_highScoreTxt = m_highScoreOBJ.GetComponent<Text>();
-            m_highScoreTxt.text = ScoreManager.HighScore().ToString();
+            m_highScoreText.text = ScoreManager.HighScore().ToString();
 
-            if(m_playBttn)
-                m_playBttn.onClick.AddListener(delegate{OnPlay();});
+            if (m_playButton)
+            {
+                m_playButton.onClick.AddListener(delegate
+                {
+                    OnPlay();
+                });
+            }
             else
+            {
                 print("ERROR : ScreenManager() -> null playbutton");
+            }
 
-            if(m_quitBttn)
-                m_quitBttn.onClick.AddListener(delegate{OnQuit();});
+            if (m_quitButton)
+            {
+                m_quitButton.onClick.AddListener(delegate
+                {
+                    OnQuit();
+                });
+            }
             else
+            {
                 print("ERROR : ScreenManager() -> null m_quitBttn");
+            }
 		}
     }
 

@@ -7,6 +7,7 @@ public class SceneControl
 {
     static string menuSceneName = "MainScene";
     static string gameOverSceneName = "GameOverScene";
+    static string gameSceneName = "GameScene";
 
     public static void LoadMainMenu()
     {
@@ -18,6 +19,6 @@ public class SceneControl
 	}
     public static void LoadPlay()
     {
-
-	}
+        SceneManager.LoadScene(gameSceneName);
+    }
 }
