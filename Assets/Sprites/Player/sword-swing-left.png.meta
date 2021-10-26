@@ -1,40 +1,25 @@
 fileFormatVersion: 2
-guid: ac0c549314afb3647b1c47f1e45b7fd0
+guid: 6b0750bc8cbbdb748bfa0d53567add13
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3969236978892388187
-    second: characer-run-0
+      213: 3002272037789909521
+    second: sword-swing-left_0
   - first:
-      213: 9156304726506236766
-    second: character-run-1
+      213: 517260978045840081
+    second: sword-swing-left_1
   - first:
-      213: 1025355152802098457
-    second: character-run-2
+      213: 3184775801583992828
+    second: sword-swing-left_2
   - first:
-      213: -8384054397779349951
-    second: character-run-3
+      213: 7185253134464677244
+    second: sword-swing-left_3
   - first:
-      213: -2268296894966672681
-    second: character-idle-0
+      213: -6860836680193580991
+    second: sword-swing-left_4
   - first:
-      213: 1877962616861717548
-    second: character-idle-1
-  - first:
-      213: -4653253719287507871
-    second: character-jump-0
-  - first:
-      213: -5846821473577021187
-    second: character-jump-1
-  - first:
-      213: 830363272049696548
-    second: character-jump-2
-  - first:
-      213: 4115016072927187512
-    second: character-jump-3
-  - first:
-      213: -1980094970683021533
-    second: character-jump-4
+      213: -247636297797056295
+    second: sword-swing-left_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -65,7 +50,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -79,7 +64,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 8
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -121,19 +106,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
+    buildTarget: Windows Store Apps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -148,139 +121,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: characer-run-0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5a846c36fff6ae8c0800000000000000
-      internalID: -3969236978892388187
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character-run-1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e5b62a6f2aab11f70800000000000000
-      internalID: 9156304726506236766
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character-run-2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 91da263341bca3e00800000000000000
-      internalID: 1025355152802098457
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character-run-3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 14e6fc222fad5ab80800000000000000
-      internalID: -8384054397779349951
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character-idle-0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7d2d362fdf36580e0800000000000000
-      internalID: -2268296894966672681
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character-idle-1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c247187dc0ddf0a10800000000000000
-      internalID: 1877962616861717548
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character-jump-0
+      name: sword-swing-left_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 160
+        height: 108
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -288,20 +135,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1645a1475625c6fb0800000000000000
-      internalID: -4653253719287507871
+      spriteID: 1124e8bf2863aa920800000000000000
+      internalID: 3002272037789909521
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: character-jump-1
+      name: sword-swing-left_1
       rect:
         serializedVersion: 2
-        x: 16
+        x: 160
         y: 0
-        width: 16
-        height: 16
+        width: 160
+        height: 108
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -309,20 +156,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df0d05af8daebdea0800000000000000
-      internalID: -5846821473577021187
+      spriteID: 1dae7947e1ead2700800000000000000
+      internalID: 517260978045840081
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: character-jump-2
+      name: sword-swing-left_2
       rect:
         serializedVersion: 2
-        x: 32
+        x: 320
         y: 0
-        width: 16
-        height: 16
+        width: 160
+        height: 108
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -330,20 +177,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42f9d091ffa068b00800000000000000
-      internalID: 830363272049696548
+      spriteID: cff7ca6c7b8923c20800000000000000
+      internalID: 3184775801583992828
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: character-jump-3
+      name: sword-swing-left_3
       rect:
         serializedVersion: 2
-        x: 48
+        x: 480
         y: 0
-        width: 16
-        height: 16
+        width: 160
+        height: 108
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -351,20 +198,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 83219d7e0597b1930800000000000000
-      internalID: 4115016072927187512
+      spriteID: c75770d18a527b360800000000000000
+      internalID: 7185253134464677244
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: character-jump-4
+      name: sword-swing-left_4
       rect:
         serializedVersion: 2
-        x: 64
+        x: 640
         y: 0
-        width: 16
-        height: 16
+        width: 160
+        height: 108
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -372,8 +219,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 327a6ea7d1a4584e0800000000000000
-      internalID: -1980094970683021533
+      spriteID: 140671fb36969c0a0800000000000000
+      internalID: -6860836680193580991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword-swing-left_5
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 0
+        width: 160
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d840546918309cf0800000000000000
+      internalID: -247636297797056295
       vertices: []
       indices: 
       edges: []
