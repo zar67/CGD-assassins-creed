@@ -28,13 +28,15 @@ public class AIViewHandler : MonoBehaviour
     {
         RaycastHit2D hitWall = Physics2D.Raycast(transform.position, Vector2.right * (lookingLeft ? -1 : 1), actualVision, LayerMask.GetMask("Default"));
 
-        if (!foundPlayer && hitWall.collider != null && hitWall.collider.tag == "Player")
+        bool seeingPlayer = hitWall.collider != null && hitWall.collider.tag == "Player";
+
+        if (!foundPlayer && seeingPlayer)
         {
             foundPlayer = true;
             AIMove.FoundPlayer(lookingLeft);
         }
 
-        if (foundPlayer && !(hitWall.collider != null && hitWall.collider.tag == "Player"))
+        if (foundPlayer && !seeingPlayer)
         {
             foundPlayer = false;
             AIMove.LostPlayer();
@@ -85,16 +87,4 @@ public class AIViewHandler : MonoBehaviour
         VHandler.FlipView(_lookingLeft);
         lookForWallsAndPlatforms = true;
     }
-
-    //void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    if (other.gameObject.layer == LayerMask.NameToLayer("Walls"))
-    //    {
-    //        AIMove.ReachedWall(lookingLeft);
-    //    }
-    //    else if (other.tag == "Player")
-    //    {
-    //        Debug.Log("FOUND PLAYER!!!");
-    //    }
-    //}
 }
