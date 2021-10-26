@@ -9,12 +9,14 @@ public class AIMovement : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Rigidbody2D m_rigidbody = default;
-    [SerializeField] private AIViewHandler viewHandler = default;
+    [SerializeField] private AIViewHandler viewHandlerBottom = default;
+    [SerializeField] private AIViewHandler viewHandlerTop = default;
     [SerializeField] private SpriteRenderer spr = default;
 
     [Header("Movement")]
     [Range(0, 0.3f)] [SerializeField] private float movementSmoothingAmount = 0.05f;
     public float movementSpeed = 200f;
+    public float playerFoundSpeed = 400f;
 
     private Vector3 m_velocity = Vector3.zero;
 
@@ -23,6 +25,9 @@ public class AIMovement : MonoBehaviour
     private bool moving = false;
 
     private float timeBeforeFlippingRemaining = 0f;
+
+    private bool playerFound = false;
+    private bool playerDir = false;
 
     public bool IsMovingLeft(){return movingLeft;}
 
@@ -34,6 +39,33 @@ public class AIMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        if (playerFound)
+        {
+            Debug.Log("PLAYER FOUND");
+            MovementWhenFoundPlayer();
+        }
+        else
+        {
+            NormalMovement();
+        }
+        
+    }
+
+    void MovementWhenFoundPlayer()
+    {
+        if (playerDir != movingLeft)
+        {
+            FlipAi();
+        }
+
+        if (moving)
+        {
+            UpdateMovement((movingLeft ? -1 : 1) * playerFoundSpeed * Time.deltaTime);
+        }
+    }
+
+    void NormalMovement()
     {
         if (moving)
         {
@@ -65,7 +97,8 @@ public class AIMovement : MonoBehaviour
         movingLeft = !movingLeft;
         needsFlipping = false;
 
-        viewHandler.FlipView(movingLeft);
+        viewHandlerBottom.FlipView(movingLeft);
+        viewHandlerTop.FlipView(movingLeft);
         spr.flipX = movingLeft;
     }
 
@@ -74,7 +107,10 @@ public class AIMovement : MonoBehaviour
         if (col.gameObject.layer == LayerMask.NameToLayer("Platforms"))
         {
             m_rigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
-            transform.position = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
+
+            float y = transform.position.y % 1.0f;
+
+            transform.position = new Vector3(transform.position.x, (transform.position.y - y) + (y < 0.5f ? 0.02f : 1.02f), transform.position.z);
         }
     }
 
@@ -103,5 +139,16 @@ public class AIMovement : MonoBehaviour
         moving = false;
         timeBeforeFlippingRemaining = timeBeforeFlipping;
         m_rigidbody.velocity = Vector3.zero;
+    }
+
+    public void FoundPlayer(bool _playerDir)
+    {
+        playerFound = true;
+        playerDir = _playerDir;
+    }
+
+    public void LostPlayer()
+    {
+        playerFound = false;
     }
 }
