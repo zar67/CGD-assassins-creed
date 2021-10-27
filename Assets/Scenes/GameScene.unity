@@ -220,7 +220,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_mainCamera: {fileID: 964196860}
-  m_playerTransform: {fileID: 1817072022}
+  m_movementSpeed: 15
+  m_difficultyMultiplier: 0.2
 --- !u!1001 &1438033150
 PrefabInstance:
   m_ObjectHideFlags: 0
