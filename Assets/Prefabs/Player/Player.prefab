@@ -315,7 +315,7 @@ MonoBehaviour:
     m_Bits: 64
   m_wallGrabbingGravityMultiplier: 0.3
   m_wallJumpDuration: 0.2
-  m_wallJumpHeightMultiplier: 1.5
+  m_wallJumpHeightMultiplier: 8
   m_whatIsWall:
     serializedVersion: 2
     m_Bits: 128
@@ -414,7 +414,7 @@ Transform:
   m_LocalScale: {x: -2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 315238575509754803}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8425667240944582006
 SpriteRenderer:
@@ -690,11 +690,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bf403803dfe65542a4bd0c9933b0125, type: 3}
---- !u!1 &9216247878378608637 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8066697854269222067, guid: 0bf403803dfe65542a4bd0c9933b0125, type: 3}
-  m_PrefabInstance: {fileID: 1158580038298975054}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9216247878378608638 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8066697854269222064, guid: 0bf403803dfe65542a4bd0c9933b0125, type: 3}
