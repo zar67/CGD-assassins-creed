@@ -150,7 +150,7 @@ public class PlayerCombat : MonoBehaviour
     bool CheckAIDirection(AIMovement _aiMovement)
     {
         bool aiMovingLeft = _aiMovement.IsMovingLeft();
-        if((aiMovingLeft && m_rig2D.velocity.x < 0.0f) || (!aiMovingLeft && m_rig2D.velocity.x > 0.0f))
+        if(!_aiMovement.HasSeenPlayer() && ((aiMovingLeft && m_rig2D.velocity.x < -0.1f) || (!aiMovingLeft && m_rig2D.velocity.x > 0.1f)))
             return true;
 
         return false;

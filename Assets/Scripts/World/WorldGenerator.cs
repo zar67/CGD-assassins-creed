@@ -11,13 +11,14 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] private float SPAWN_DISTANCE = 5;
 
     private Vector2 lastPartEndPosition = Vector2.zero;
-    private GameObject lastPartLoaded = null;
-    private Dictionary<Vector2, GameObject> loadedParts = new Dictionary<Vector2, GameObject>();
+    private TerrainPart lastPartLoaded = null;
+    private Dictionary<Vector2, TerrainPart> loadedParts = new Dictionary<Vector2, TerrainPart>();
 
     private void Start()
     {
         //Setup starting platform
-        lastPartEndPosition = worldPieces[0].GetComponent<TerrainPart>().endPosition.position;
+        lastPartLoaded = worldPieces[0].GetComponent<TerrainPart>();
+        lastPartEndPosition = lastPartLoaded.endPosition.position;
     }
 
     private void Update()
@@ -26,17 +27,40 @@ public class WorldGenerator : MonoBehaviour
         
         if(distance < SPAWN_DISTANCE)
         {
-            lastPartEndPosition = SpawnTerrainPart().endPosition.position;
+            lastPartEndPosition = SpawnTerrainPart().endPosition.position; //NEEDS TO CHECK WHAT LAST PART WAS
             loadedParts.Add(lastPartEndPosition, lastPartLoaded); //For destroying later
         }
     }
-
+    
     private TerrainPart SpawnTerrainPart()
     {
-        int partIndex = Random.Range(0, worldPieces.Count);
         Vector2 m_lastPosition = new Vector2(lastPartEndPosition.x + DISTANCE_FROM_LAST_PART, lastPartEndPosition.y);
 
-        lastPartLoaded = Instantiate(worldPieces[partIndex], m_lastPosition, Quaternion.identity, this.transform);
-        return lastPartLoaded.GetComponent<TerrainPart>();
+        GameObject lastPartObject = Instantiate(GetUsuableTerrainPart(), m_lastPosition, Quaternion.identity, this.transform);
+        lastPartLoaded = lastPartObject.GetComponent<TerrainPart>();
+        return lastPartLoaded;
+    }
+
+    private GameObject GetUsuableTerrainPart()
+    {
+        if(lastPartLoaded != null)
+        {
+            List<GameObject> usableParts = new List<GameObject>();
+
+            foreach(GameObject p in worldPieces)
+            {
+                TerrainPart tp = p.GetComponent<TerrainPart>();
+
+                if (lastPartLoaded.Compare(tp.terrainHeight))
+                {
+                    usableParts.Add(p);
+                }
+            }
+
+            int partIndex = Random.Range(0, usableParts.Count);
+            return usableParts[partIndex];
+        }
+
+        return null;
     }
 }
