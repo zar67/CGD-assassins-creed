@@ -23,6 +23,7 @@ public class PlayerData : MonoBehaviour
     public void DamageTaken(float _damage)
     {
         m_health -= _damage;
+        Debug.Log(m_health);
         if(IsDead())
             SetPlayerDead();
     }

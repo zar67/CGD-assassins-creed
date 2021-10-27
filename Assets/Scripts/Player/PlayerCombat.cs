@@ -42,14 +42,15 @@ public class PlayerCombat : MonoBehaviour
         {
             case CombatState.ctIDLE:
             {
-                GameObject enemyToAttack = TestSneakAttackRange();
+                AIMovement enemyToAttack = TestSneakAttackRange();
                 if(enemyToAttack != null)
                 {
-                    m_combatState = CombatState.ctSNEAK_ATTACK;
-                    m_swordAnim.SetActive(true);
-
-                    Debug.Log("Sword True");
-                    Destroy(enemyToAttack);
+                    if (!enemyToAttack.DeathHandler.IsDying)
+                    {
+                        m_combatState = CombatState.ctSNEAK_ATTACK;
+                        m_swordAnim.SetActive(true);
+                        enemyToAttack.DeathHandler.KillEnemy();
+                    }
 		        }
 
                 if(m_canTakeDamage == false)
@@ -67,7 +68,6 @@ public class PlayerCombat : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Sword False");
                     m_swordAnim.SetActive(false);
                     m_combatState = CombatState.ctIDLE;
                     m_currentSneakTimer = 0;
@@ -135,7 +135,7 @@ public class PlayerCombat : MonoBehaviour
 		}
 	}
 
-	GameObject TestSneakAttackRange()
+	AIMovement TestSneakAttackRange()
 	{ 
         // cant do sneak attack if falling
         if(m_rig2D.velocity.y < 0)
@@ -144,9 +144,10 @@ public class PlayerCombat : MonoBehaviour
        Collider2D[] allColliders = Physics2D.OverlapCircleAll(gameObject.transform.position, m_SNEAK_ATTACK_RANGE);
        foreach(var col in allColliders)
        {
-            if(col.gameObject.tag == "Enemy" && CheckAIDirection(col.gameObject.GetComponent<AIMovement>()))
+            AIMovement aiMovement = col.gameObject.GetComponent<AIMovement>();
+            if(col.gameObject.tag == "Enemy" && aiMovement != null && CheckAIDirection(aiMovement))
             {
-                return col.gameObject;
+                return aiMovement;
 			}
        }
        return null;
@@ -176,5 +177,4 @@ public class PlayerCombat : MonoBehaviour
             PlayerHit(20);
 		}
 	}
-
 }

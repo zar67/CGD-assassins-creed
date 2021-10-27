@@ -9,6 +9,8 @@ public class AIMovement : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Rigidbody2D m_rigidbody = default;
+    [SerializeField] private Animator m_animator = default;
+    [SerializeField] private AIDeathHandler m_deathHandler = default;
     [SerializeField] private AIViewHandler viewHandlerBottom = default;
     [SerializeField] private AIViewHandler viewHandlerTop = default;
     [SerializeField] private SpriteRenderer spr = default;
@@ -44,6 +46,8 @@ public class AIMovement : MonoBehaviour
     public bool IsMovingLeft(){return movingLeft;}
     public bool HasSeenPlayer() { return playerFound; }
 
+    public AIDeathHandler DeathHandler => m_deathHandler;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +69,21 @@ public class AIMovement : MonoBehaviour
         {
             NormalMovement();
         }
+
+        UpdateAnimator();
+    }
+
+    public void ResetOnDeath()
+    {
+        m_rigidbody.velocity = Vector2.zero;
+        fndMark.SetActive(false);
+        enabled = false;
+    }
+
+    private void UpdateAnimator()
+    {
+        m_animator.SetFloat("Speed", Mathf.Abs(m_rigidbody.velocity.x));
+        m_animator.SetBool("Jump", jumped);
     }
 
     #region Movement Region

@@ -20,6 +20,13 @@ public class AIViewHandler : MonoBehaviour
         return foundPlayer;
     }
 
+    public void ResetOnDeath()
+    {
+        foundPlayer = false;
+        VHandler.SetScale(0);
+        enabled = false;
+    }
+
     public void SetUpHandler(float _stopDistanceWall, float _stopDistPlatform, float _visionPlayer)
     {
         stopDistanceWall = _stopDistanceWall;
