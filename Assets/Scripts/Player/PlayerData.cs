@@ -1,10 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
-    const float m_START_HEALTH = 100.0f;
+    [SerializeField] private Animator m_characterAnimator;
+
+    const float m_START_HEALTH = 1.0f;
     float m_health = 0.0f;
     
     enum PlayerState 
@@ -18,14 +19,6 @@ public class PlayerData : MonoBehaviour
         m_health = m_START_HEALTH;
     }
 
-
-    void Update()
-    {
-        
-    }
-
-    
-
     //Health Functions
     public void DamageTaken(float _damage)
     {
@@ -37,10 +30,16 @@ public class PlayerData : MonoBehaviour
     public void SetPlayerDead()
     {
         m_playerState = PlayerState.psDEAD;
-        SceneControl.LoadGameOver();
+        m_characterAnimator.SetTrigger("Death");
+        StartCoroutine(WaitForDeathAnim());
     }
     private void SetPlayerAlive(){m_playerState = PlayerState.psALIVE;}
     private bool IsDead(){return m_health <= 0.0f;}
-    
+
+    private IEnumerator WaitForDeathAnim()
+    {
+        yield return new WaitForSeconds(1.0f);
+        SceneControl.LoadGameOver();
+    }
 
 }

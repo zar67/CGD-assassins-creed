@@ -1,25 +1,22 @@
 fileFormatVersion: 2
-guid: b20b99295e8745a43a05bc109009752c
+guid: b17528f8cae68834d9de96735ca842ed
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5610223600689523081
-    second: sword-swing-right_0
+      213: 1317339634470739514
+    second: Sword-sprite-sheet_0
   - first:
-      213: -3168372843438306545
-    second: sword-swing-right_1
+      213: 5326092252315710179
+    second: Sword-sprite-sheet_1
   - first:
-      213: 4263785962772894176
-    second: sword-swing-right_2
+      213: -8179344614823595340
+    second: Sword-sprite-sheet_2
   - first:
-      213: -4053730586140188123
-    second: sword-swing-right_3
+      213: -7512490584197683516
+    second: Sword-sprite-sheet_3
   - first:
-      213: -2479789888975370768
-    second: sword-swing-right_4
-  - first:
-      213: 6017297206263009644
-    second: sword-swing-right_5
+      213: 7941981379804368784
+    second: Sword-sprite-sheet_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -50,7 +47,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -64,7 +61,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 8
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -86,7 +83,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,7 +95,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -106,11 +103,23 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Windows Store Apps
+    buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -121,13 +130,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sword-swing-right_0
+      name: Sword-sprite-sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 150.5
-        height: 85
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -135,20 +144,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 77653620c5b7422b0800000000000000
-      internalID: -5610223600689523081
+      spriteID: a3edb210b61284210800000000000000
+      internalID: 1317339634470739514
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sword-swing-right_1
+      name: Sword-sprite-sheet_1
       rect:
         serializedVersion: 2
-        x: 150
+        x: 16
         y: 0
-        width: 150.5
-        height: 85
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,20 +165,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f0b8dd68fada704d0800000000000000
-      internalID: -3168372843438306545
+      spriteID: 3e2fc344fa41ae940800000000000000
+      internalID: 5326092252315710179
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sword-swing-right_2
+      name: Sword-sprite-sheet_2
       rect:
         serializedVersion: 2
-        x: 300
+        x: 32
         y: 0
-        width: 150.5
-        height: 85
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -177,20 +186,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e1106d1eb20c2b30800000000000000
-      internalID: 4263785962772894176
+      spriteID: 4b27fe9a8612d7e80800000000000000
+      internalID: -8179344614823595340
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sword-swing-right_3
+      name: Sword-sprite-sheet_3
       rect:
         serializedVersion: 2
-        x: 450
+        x: 48
         y: 0
-        width: 150.5
-        height: 85
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -198,20 +207,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5226afd62814eb7c0800000000000000
-      internalID: -4053730586140188123
+      spriteID: 4c62e66dd954eb790800000000000000
+      internalID: -7512490584197683516
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sword-swing-right_4
+      name: Sword-sprite-sheet_4
       rect:
         serializedVersion: 2
-        x: 600
+        x: 64
         y: 0
-        width: 150.5
-        height: 85
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -219,29 +228,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0f584060c34069dd0800000000000000
-      internalID: -2479789888975370768
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sword-swing-right_5
-      rect:
-        serializedVersion: 2
-        x: 750
-        y: 0
-        width: 150.5
-        height: 85
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c61d1479debb18350800000000000000
-      internalID: 6017297206263009644
+      spriteID: 09f810c8cf5973e60800000000000000
+      internalID: 7941981379804368784
       vertices: []
       indices: 
       edges: []
