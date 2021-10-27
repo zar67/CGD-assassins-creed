@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] private GameObject m_swordAnim;
+
     Rigidbody2D m_rig2D;
     PlayerData m_playerData; 
 
@@ -24,7 +25,7 @@ public class PlayerCombat : MonoBehaviour
 
     const float m_SNEAK_ATTACK_RANGE = 2.0f;
     const uint m_SCORE_INCREMENT = 25;
-    const float m_SNEAK_ANIM_TIMER = 0.8f; // cant take damage once taken damage for x amount of time
+    const float m_SNEAK_ANIM_TIMER = 0.5f; // cant take damage once taken damage for x amount of time
     float m_currentSneakTimer = 0.0f;
 
 
@@ -46,6 +47,8 @@ public class PlayerCombat : MonoBehaviour
                 {
                     m_combatState = CombatState.ctSNEAK_ATTACK;
                     m_swordAnim.SetActive(true);
+
+                    Debug.Log("Sword True");
                     Destroy(enemyToAttack);
 		        }
 
@@ -64,8 +67,10 @@ public class PlayerCombat : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("Sword False");
                     m_swordAnim.SetActive(false);
                     m_combatState = CombatState.ctIDLE;
+                    m_currentSneakTimer = 0;
 		        }
 			}break;
             case CombatState.ctATTACKING:
@@ -86,7 +91,8 @@ public class PlayerCombat : MonoBehaviour
         else
         {
             m_swordAnim.SetActive(false);
-		}
+            m_currentSneakTimer = 0;
+        }
         print("END ANIM");
         
         yield return new WaitForSeconds(0.1f);
