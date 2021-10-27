@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] private GameObject m_swordAnim;
+
     Rigidbody2D m_rig2D;
     PlayerData m_playerData; 
 
