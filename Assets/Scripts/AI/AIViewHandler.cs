@@ -32,6 +32,12 @@ public class AIViewHandler : MonoBehaviour
         stopDistanceWall = _stopDistanceWall;
         stopDistancePlatform = _stopDistPlatform;
         visionPlayer = _visionPlayer;
+        actualVision = _visionPlayer;
+    }
+
+    public void SetVisionVisibility(bool visible)
+    {
+        VHandler.SetVisibility(visible);
     }
 
     void FixedUpdate()

@@ -1,11 +1,67 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class AIMovement : MonoBehaviour
 {
+    #region Difficulty enum and structs
+
+    [Serializable] enum DifficultyParameter
+    {
+        MOVEMENT_SPEED,
+        MOVEMENT_SPEED_PLAYER_FOUND,
+        TIME_BFR_RUSHING_PLAYER,
+        VISION_DISTANCE,
+        TIME_BFR_FLIPPING,
+    }
+
+    [Serializable] struct ValueEvolution
+    {
+        public DifficultyParameter parameter;
+        public int maxDifficultyValue;
+        public float minValue;
+        public float maxValue;
+
+        public float GetCurrentValue(int currentDifficulty)
+        {
+            float d = (float)currentDifficulty / maxDifficultyValue;
+            Debug.Log("C: " + currentDifficulty.ToString() + " MD: " + maxDifficultyValue.ToString() + " D: " + d.ToString());
+
+            if (d > 1) d = 1;
+
+            return minValue + ((maxValue - minValue) * d);
+        }
+    }
+
+    [Serializable] struct DifficultyEvolution
+    {
+        public List<ValueEvolution> difficultyEvolutions;
+
+        public float GetValueOfParameter(int d, DifficultyParameter p)
+        {
+            foreach (var v in difficultyEvolutions)
+            {
+                if (v.parameter == p)
+                {
+                    return v.GetCurrentValue(d);
+                }
+            }
+
+            Debug.LogError("COULD NOT FIND PARAMETER: " + p);
+            return 0;
+        }
+    }
+
+    #endregion
+
+    #region Variables
+
+    [SerializeField] private DifficultyEvolution difficultyEvolution;
+
+    [Header("Patrol")]
     [SerializeField] private bool patrols = true;
-    [SerializeField] private float timeBeforeFlipping = 2.5f;
+    private float timeBeforeFlipping = 2.5f;
 
     [Header("References")]
     [SerializeField] private Rigidbody2D m_rigidbody = default;
@@ -19,15 +75,17 @@ public class AIMovement : MonoBehaviour
 
     [Header("Movement")]
     [Range(0, 0.3f)] [SerializeField] private float movementSmoothingAmount = 0.05f;
-    [SerializeField] private float movementSpeed = 200f;
-    [SerializeField] private float timeBfrRushingPlayer = 0.3f;
-    [SerializeField] private float playerFoundSpeed = 400f;
+    private float movementSpeed = 200f;
+    private float timeBfrRushingPlayer = 0.3f;
+    private float playerFoundSpeed = 400f;
     [SerializeField] private float m_jumpForce = 150f;
 
     [Header("AI Vision")]
     [SerializeField] private float stopDistanceWall = 3.0f;
     [SerializeField] private float stopDistancePlatform = 1.0f;
-    [SerializeField] private float visionPlayer = 5.5f;
+    private float visionPlayer = 5.5f;
+
+    private int difficulty = 0;
 
     private Vector3 m_velocity = Vector3.zero;
 
@@ -43,19 +101,66 @@ public class AIMovement : MonoBehaviour
 
     private bool jumped = false;
 
+    [Header("Debug")]
+    public bool USEDEBUGVALUES = false;
+    public bool _VISIONVISIBLE = true;
+    public int _DIFF = 0;
+
+    #endregion
+
     public bool IsMovingLeft(){return movingLeft;}
     public bool HasSeenPlayer() { return playerFound; }
 
     public AIDeathHandler DeathHandler => m_deathHandler;
 
-    // Start is called before the first frame update
-    void Start()
+    #region Difficulty
+
+    public void SetVisionVisibility(bool visible)
     {
+        viewHandlerBottom.SetVisionVisibility(visible);
+        viewHandlerTop.SetVisionVisibility(visible);
+    }
+
+    public void SetDifficulty(int _diff)
+    {
+        difficulty = _diff;
+        SetDifficultyParameters();
+    }
+
+    public void IncreaseDifficulty()
+    {
+        difficulty++;
+        SetDifficultyParameters();
+    }
+
+    void SetDifficultyParameters()
+    {
+        movementSpeed = difficultyEvolution.GetValueOfParameter(difficulty, DifficultyParameter.MOVEMENT_SPEED);
+        playerFoundSpeed = difficultyEvolution.GetValueOfParameter(difficulty, DifficultyParameter.MOVEMENT_SPEED_PLAYER_FOUND);
+        timeBfrRushingPlayer = difficultyEvolution.GetValueOfParameter(difficulty, DifficultyParameter.TIME_BFR_RUSHING_PLAYER);
+        timeBeforeFlipping = difficultyEvolution.GetValueOfParameter(difficulty, DifficultyParameter.TIME_BFR_FLIPPING);
+        visionPlayer = difficultyEvolution.GetValueOfParameter(difficulty, DifficultyParameter.VISION_DISTANCE);
+
         timeBeforeFlippingRemaining = timeBeforeFlipping;
         timeBeforeRushRemaining = timeBfrRushingPlayer;
 
         viewHandlerBottom.SetUpHandler(stopDistanceWall, stopDistancePlatform, visionPlayer);
         viewHandlerTop.SetUpHandler(stopDistanceWall, stopDistancePlatform, visionPlayer);
+
+        Debug.Log(visionPlayer);
+    }
+
+    #endregion
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (USEDEBUGVALUES)
+        {
+            difficulty = _DIFF;
+            SetVisionVisibility(_VISIONVISIBLE);
+        }
+        SetDifficultyParameters();
     }
 
     // Update is called once per frame

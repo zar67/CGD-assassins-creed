@@ -170,8 +170,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e5c4c2bf4e20c47824525f91cf6bb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficultyEvolution:
+    difficultyEvolutions:
+    - parameter: 0
+      maxDifficultyValue: 100
+      minValue: 180
+      maxValue: 350
+    - parameter: 1
+      maxDifficultyValue: 100
+      minValue: 300
+      maxValue: 600
+    - parameter: 2
+      maxDifficultyValue: 25
+      minValue: 0.6
+      maxValue: 0.1
+    - parameter: 3
+      maxDifficultyValue: 100
+      minValue: 3
+      maxValue: 20
+    - parameter: 4
+      maxDifficultyValue: 100
+      minValue: 3
+      maxValue: 0
   patrols: 1
-  timeBeforeFlipping: 2.5
   m_rigidbody: {fileID: 8346521274679782190}
   m_animator: {fileID: 5131457406516212175}
   m_deathHandler: {fileID: 2657708843138240807}
@@ -181,13 +202,12 @@ MonoBehaviour:
   fndMark: {fileID: 4916159484493348275}
   floorCheck: {fileID: 556591076479013663}
   movementSmoothingAmount: 0.05
-  movementSpeed: 200
-  timeBfrRushingPlayer: 0.3
-  playerFoundSpeed: 400
   m_jumpForce: 400
   stopDistanceWall: 3
   stopDistancePlatform: 1
-  visionPlayer: 5.5
+  USEDEBUGVALUES: 1
+  _VISIONVISIBLE: 1
+  _DIFF: 15
 --- !u!1 &922822374959453071
 GameObject:
   m_ObjectHideFlags: 0
