@@ -41,6 +41,7 @@ public class AIViewHandler : MonoBehaviour
         {
             foundPlayer = true;
             AIMove.FoundPlayer(lookingLeft);
+            FindObjectOfType<SoundManager>().Play("alert");
         }
 
         if (foundPlayer && !seeingPlayer)

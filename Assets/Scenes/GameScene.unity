@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 964196860}
   - component: {fileID: 964196859}
   - component: {fileID: 964196862}
+  - component: {fileID: 964196863}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -222,6 +223,68 @@ MonoBehaviour:
   m_mainCamera: {fileID: 964196860}
   m_movementSpeed: 15
   m_difficultyMultiplier: 0.2
+--- !u!114 &964196863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964196858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61bdb6a5da948c549946a60053d0a71e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: jump
+    clip: {fileID: 8300000, guid: 028f69107cda3754e9b480117d06f382, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    source: {fileID: 0}
+  - name: hang
+    clip: {fileID: 8300000, guid: 8ee1dbed0040cd94caba651171278990, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    source: {fileID: 0}
+  - name: hit_hurt
+    clip: {fileID: 8300000, guid: 3cf205302dc359d4ba9af721bb1862f4, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    source: {fileID: 0}
+  - name: player_death
+    clip: {fileID: 8300000, guid: 3ae60fb59d1dced41af59a446a6eb061, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    source: {fileID: 0}
+  - name: enemy_death
+    clip: {fileID: 8300000, guid: 8877699880b0fc440ba198ae1f265d24, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    source: {fileID: 0}
+  - name: wall_jump
+    clip: {fileID: 8300000, guid: 62cf685d13a791c43be5abbfe7cd89a5, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    source: {fileID: 0}
+  - name: alert
+    clip: {fileID: 8300000, guid: 2fc24747c3a950f4ba94b59c2085d202, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    source: {fileID: 0}
 --- !u!1001 &1438033150
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -189,6 +189,7 @@ public class PlayerMovement : MonoBehaviour
 			if ((m_isFacingRight && movement > 0) || (!m_isFacingRight && movement < 0))
 			{
 				m_isGrabbingWall = true;
+				FindObjectOfType<SoundManager>().Play("wall_slide");
 			}
 		}
 
@@ -199,6 +200,7 @@ public class PlayerMovement : MonoBehaviour
 
 			if (m_jumpInput && m_jumpInputPressedThisFrame)
 			{
+				FindObjectOfType<SoundManager>().Play("wall_jump");
 				m_wallJumpTimer = m_wallJumpDuration;
 				m_rigidbody.AddForce(new Vector2(-(m_movementInput * m_jumpForce * 6f), m_jumpForce * m_wallJumpHeightMultiplier));
 				Flip();
@@ -218,6 +220,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (m_jumpInput && m_isGrounded)
 		{
+			FindObjectOfType<SoundManager>().Play("jump");
 			m_isGrounded = false;
 			m_rigidbody.AddForce(new Vector2(0f, m_jumpForce * 10f));
 		}
@@ -245,13 +248,17 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (m_isHanging)
 		{
+			//FindObjectOfType<SoundManager>().Play("hang");
+
 			movement *= m_hangingSpeedMultiplier;
 		}
+		//FindObjectOfType<SoundManager>().Stop("hang");
 
 		if (m_climbingInput < 0 && m_climbingPressedThisFrame)
 		{
 			if (m_isHanging)
 			{
+			
 				SetCollidersForHanging(false);
 				m_platformHangingOn = null;
 				m_isHanging = false;
@@ -272,7 +279,6 @@ public class PlayerMovement : MonoBehaviour
 				SetCollidersForHanging(false);
 				m_platformHangingOn = null;
 				m_isHanging = false;
-
 				m_rigidbody.AddForce(new Vector2(0f, m_jumpForce));
 			}
 		}
@@ -288,6 +294,7 @@ public class PlayerMovement : MonoBehaviour
 			m_platformHangingOn = colliders[0];
 			SetCollidersForHanging(true);
 			m_isHanging = true;
+			FindObjectOfType<SoundManager>().Play("hang");
 		}
 	}
 
