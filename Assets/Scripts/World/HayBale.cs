@@ -10,6 +10,7 @@ public class HayBale : MonoBehaviour
 		{
 			Debug.Log("Enter");
 			collision.gameObject.GetComponent<PlayerMovement>().SetInsideHayBale(true);
+			collision.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.grey;
 		}
 	}
 
@@ -19,6 +20,7 @@ public class HayBale : MonoBehaviour
 		{
 			Debug.Log("Exit");
 			collision.gameObject.GetComponent<PlayerMovement>().SetInsideHayBale(false);
+			collision.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.white;
 		}
 	}
 }
