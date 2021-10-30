@@ -36,7 +36,8 @@ public class AIViewHandler : MonoBehaviour
     {
         RaycastHit2D hitWall = Physics2D.Raycast(transform.position, Vector2.right * (lookingLeft ? -1 : 1), actualVision, LayerMask.GetMask("Default"));
 
-        bool seeingPlayer = hitWall.collider != null && hitWall.collider.tag == "Player";
+        
+        bool seeingPlayer = hitWall.collider != null && hitWall.collider.tag == "Player" && !hitWall.collider.gameObject.GetComponent<PlayerMovement>().GetInsideHayBale();
 
         if (!foundPlayer && seeingPlayer)
         {
