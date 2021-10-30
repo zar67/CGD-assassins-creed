@@ -15,6 +15,7 @@ public class AIViewHandler : MonoBehaviour
     private float actualVision = 4.0f;
     private bool foundPlayer = false;
 
+
     public void SetUpHandler(float _stopDistanceWall, float _stopDistPlatform, float _visionPlayer)
     {
         stopDistanceWall = _stopDistanceWall;
@@ -41,6 +42,7 @@ public class AIViewHandler : MonoBehaviour
         {
             foundPlayer = true;
             AIMove.FoundPlayer(lookingLeft);
+            ScoreManager.DecreseScore();
         }
 
         if (foundPlayer && !seeingPlayer)
