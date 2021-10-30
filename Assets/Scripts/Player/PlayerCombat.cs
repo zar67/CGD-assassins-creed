@@ -146,7 +146,6 @@ public class PlayerCombat : MonoBehaviour
        {
             if(col.gameObject.tag == "Enemy" && CheckAIDirection(col.gameObject.GetComponent<AIMovement>()))
             {
-                Debug.Log("FU");
                 FindObjectOfType<SoundManager>().Play("enemy_death");
                 return col.gameObject;
 
