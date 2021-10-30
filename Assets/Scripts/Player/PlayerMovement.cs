@@ -70,6 +70,10 @@ public class PlayerMovement : MonoBehaviour
 	private Collider2D m_platformHangingOn = null;
 	private bool m_canHangNearby = false;
 
+	private bool m_insideHayBale = false;
+	public bool GetInsideHayBale() {return m_insideHayBale;}
+	public void SetInsideHayBale(bool _value) {m_insideHayBale = _value;}
+
     private void Awake()
     {
 		m_defaultGravityScale = m_rigidbody.gravityScale;
@@ -115,6 +119,7 @@ public class PlayerMovement : MonoBehaviour
 
 		// Wall Grabbing Check
 		m_canGrabWall = Physics2D.OverlapCircle(m_wallCheck.position, WALL_GRABBING_RADIUS, m_whatIsWall);
+
 
 		if (m_canControl)
 		{

@@ -8,6 +8,7 @@ public class PlayerCombat : MonoBehaviour
 
     Rigidbody2D m_rig2D;
     PlayerData m_playerData; 
+    PlayerMovement m_playerMovement;
 
     const float m_DAMAGE_TIMER = 2.0f; // cant take damage once taken damage for x amount of time
     float m_currentDamageTime = 0.0f;
@@ -34,6 +35,7 @@ public class PlayerCombat : MonoBehaviour
 	{
 		m_rig2D = gameObject.GetComponent<Rigidbody2D>();
         m_playerData = gameObject.GetComponent<PlayerData>();
+        m_playerMovement = gameObject.GetComponent<PlayerMovement>();
 	}
 
 	// Update is called once per frame
@@ -174,7 +176,7 @@ public class PlayerCombat : MonoBehaviour
             Destroy(collider.gameObject.transform.parent.gameObject);
             ScoreManager.IncreaseScore();
 		}
-        else if(name == "DeathCollider" && m_combatState != CombatState.ctSNEAK_ATTACK)
+        else if(name == "DeathCollider" && m_combatState != CombatState.ctSNEAK_ATTACK && m_playerMovement.GetInsideHayBale() == false)
         {
             PlayerHit(20);
 		}
