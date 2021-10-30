@@ -14,6 +14,7 @@ public class PlayerCombat : MonoBehaviour
     bool m_canTakeDamage = true;
     float m_flashTime = 0.2f;
     float m_currentFlashTime = 0.0f;
+
     enum CombatState 
     {
         ctIDLE = 0,
@@ -50,6 +51,7 @@ public class PlayerCombat : MonoBehaviour
 
                     Debug.Log("Sword True");
                     Destroy(enemyToAttack);
+                    ScoreManager.IncreaseScore();
 		        }
 
                 if(m_canTakeDamage == false)
@@ -170,6 +172,7 @@ public class PlayerCombat : MonoBehaviour
 		if(name == "DeathCollider" && m_rig2D.velocity.y < 0.0f)
         {
             Destroy(collider.gameObject.transform.parent.gameObject);
+            ScoreManager.IncreaseScore();
 		}
         else if(name == "DeathCollider" && m_combatState != CombatState.ctSNEAK_ATTACK)
         {

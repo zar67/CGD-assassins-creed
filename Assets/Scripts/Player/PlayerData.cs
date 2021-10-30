@@ -1,9 +1,11 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerData : MonoBehaviour
 {
     [SerializeField] private Animator m_characterAnimator;
+    [SerializeField] private TMPro.TextMeshProUGUI m_scoreTxt;
 
     const float m_START_HEALTH = 1.0f;
     float m_health = 0.0f;
@@ -19,8 +21,16 @@ public class PlayerData : MonoBehaviour
         m_health = m_START_HEALTH;
     }
 
-    //Health Functions
-    public void DamageTaken(float _damage)
+	private void Update()
+	{
+		if(ScoreManager.IsScoreDirty())
+        {
+            ScoreManager.SetScoreDirty(false);
+            m_scoreTxt.text = ScoreManager.Score().ToString();
+		}
+	}
+	//Health Functions
+	public void DamageTaken(float _damage)
     {
         m_health -= _damage;
         if(IsDead())
