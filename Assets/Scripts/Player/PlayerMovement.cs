@@ -334,8 +334,8 @@ public class PlayerMovement : MonoBehaviour
 		if (colliders.Length > 0)
 		{
 			m_isDiving = true;
-			m_rigidbody.gravityScale = m_defaultGravityScale * m_diveSpeedMultiplier;
-			Debug.Log("INSIDE EAGLE DIVE");
+			m_rigidbody.gravityScale = m_defaultGravityScale / m_diveSpeedMultiplier;
+			//Debug.Log("INSIDE EAGLE DIVE");
 			GetPlayerInputComponent(false);
 			//FindObjectOfType<SoundManager>().Play("hang");
 		}
