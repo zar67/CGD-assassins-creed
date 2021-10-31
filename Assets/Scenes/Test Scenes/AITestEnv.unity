@@ -2400,11 +2400,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6650939372632188008, guid: 4985d21fe4e14bf488400560f0c8639e, type: 3}
       propertyPath: _DIFF
-      value: 25
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6650939372632188008, guid: 4985d21fe4e14bf488400560f0c8639e, type: 3}
       propertyPath: visible
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650939372632188008, guid: 4985d21fe4e14bf488400560f0c8639e, type: 3}
+      propertyPath: _KILLABLE
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4985d21fe4e14bf488400560f0c8639e, type: 3}

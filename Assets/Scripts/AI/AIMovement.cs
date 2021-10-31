@@ -57,7 +57,11 @@ public class AIMovement : MonoBehaviour
 
     #region Variables
 
+    [Header("Difficulty")]
     [SerializeField] private DifficultyEvolution difficultyEvolution;
+    [SerializeField] private bool killable = true;
+    [SerializeField] private Color killableColor = default; 
+    [SerializeField] private Color unkillableColor = default;
 
     [Header("Patrol")]
     [SerializeField] private bool patrols = true;
@@ -72,6 +76,7 @@ public class AIMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer spr = default;
     [SerializeField] private GameObject fndMark = default;
     [SerializeField] private FloorCheck floorCheck = default;
+    [SerializeField] private SpriteRenderer sprite = default;
 
     [Header("Movement")]
     [Range(0, 0.3f)] [SerializeField] private float movementSmoothingAmount = 0.05f;
@@ -105,15 +110,23 @@ public class AIMovement : MonoBehaviour
     public bool USEDEBUGVALUES = false;
     public bool _VISIONVISIBLE = true;
     public int _DIFF = 0;
+    public bool _KILLABLE = false;
 
     #endregion
 
     public bool IsMovingLeft(){return movingLeft;}
     public bool HasSeenPlayer() { return playerFound; }
+    public bool IsKillable() { return killable; }
 
     public AIDeathHandler DeathHandler => m_deathHandler;
 
     #region Difficulty
+
+    public void SetKillable(bool _killable)
+    {
+        killable = _killable;
+        sprite.color = (killable ? killableColor : unkillableColor);
+    }
 
     public void SetVisionVisibility(bool visible)
     {
@@ -159,8 +172,10 @@ public class AIMovement : MonoBehaviour
         {
             difficulty = _DIFF;
             SetVisionVisibility(_VISIONVISIBLE);
+            killable = _KILLABLE;
         }
         SetDifficultyParameters();
+        SetKillable(killable);
     }
 
     // Update is called once per frame

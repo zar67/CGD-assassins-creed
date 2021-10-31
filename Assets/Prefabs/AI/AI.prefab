@@ -192,6 +192,9 @@ MonoBehaviour:
       maxDifficultyValue: 100
       minValue: 3
       maxValue: 0
+  killable: 1
+  killableColor: {r: 0.6226415, g: 0.06755074, b: 0.06755074, a: 1}
+  unkillableColor: {r: 0, g: 0, b: 0.2627451, a: 1}
   patrols: 1
   m_rigidbody: {fileID: 8346521274679782190}
   m_animator: {fileID: 5131457406516212175}
@@ -201,13 +204,15 @@ MonoBehaviour:
   spr: {fileID: 7015033470754919733}
   fndMark: {fileID: 4916159484493348275}
   floorCheck: {fileID: 556591076479013663}
+  sprite: {fileID: 7015033470754919733}
   movementSmoothingAmount: 0.05
   m_jumpForce: 400
   stopDistanceWall: 3
   stopDistancePlatform: 1
-  USEDEBUGVALUES: 1
+  USEDEBUGVALUES: 0
   _VISIONVISIBLE: 1
-  _DIFF: 15
+  _DIFF: 1
+  _KILLABLE: 1
 --- !u!1 &922822374959453071
 GameObject:
   m_ObjectHideFlags: 0
