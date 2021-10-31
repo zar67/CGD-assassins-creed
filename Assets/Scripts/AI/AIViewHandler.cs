@@ -20,13 +20,6 @@ public class AIViewHandler : MonoBehaviour
         return foundPlayer;
     }
 
-    public void ResetOnDeath()
-    {
-        foundPlayer = false;
-        VHandler.SetScale(0);
-        enabled = false;
-    }
-
     public void SetUpHandler(float _stopDistanceWall, float _stopDistPlatform, float _visionPlayer)
     {
         stopDistanceWall = _stopDistanceWall;
@@ -53,12 +46,14 @@ public class AIViewHandler : MonoBehaviour
     {
         RaycastHit2D hitWall = Physics2D.Raycast(transform.position, Vector2.right * (lookingLeft ? -1 : 1), actualVision, LayerMask.GetMask("Default"));
 
-        bool seeingPlayer = hitWall.collider != null && hitWall.collider.tag == "Player";
+        
+        bool seeingPlayer = hitWall.collider != null && hitWall.collider.tag == "Player" && !hitWall.collider.gameObject.GetComponent<PlayerMovement>().GetInsideHayBale();
 
         if (!foundPlayer && seeingPlayer)
         {
             foundPlayer = true;
             AIMove.FoundPlayer(lookingLeft);
+            ScoreManager.DecreseScore();
         }
 
         if (foundPlayer && !seeingPlayer)

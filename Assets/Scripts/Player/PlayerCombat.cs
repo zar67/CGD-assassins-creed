@@ -8,12 +8,14 @@ public class PlayerCombat : MonoBehaviour
 
     Rigidbody2D m_rig2D;
     PlayerData m_playerData; 
+    PlayerMovement m_playerMovement;
 
     const float m_DAMAGE_TIMER = 2.0f; // cant take damage once taken damage for x amount of time
     float m_currentDamageTime = 0.0f;
     bool m_canTakeDamage = true;
     float m_flashTime = 0.2f;
     float m_currentFlashTime = 0.0f;
+
     enum CombatState 
     {
         ctIDLE = 0,
@@ -33,6 +35,7 @@ public class PlayerCombat : MonoBehaviour
 	{
 		m_rig2D = gameObject.GetComponent<Rigidbody2D>();
         m_playerData = gameObject.GetComponent<PlayerData>();
+        m_playerMovement = gameObject.GetComponent<PlayerMovement>();
 	}
 
 	// Update is called once per frame
@@ -45,12 +48,12 @@ public class PlayerCombat : MonoBehaviour
                 AIMovement enemyToAttack = TestSneakAttackRange();
                 if(enemyToAttack != null)
                 {
-                    if (!enemyToAttack.DeathHandler.IsDying)
-                    {
-                        m_combatState = CombatState.ctSNEAK_ATTACK;
-                        m_swordAnim.SetActive(true);
-                        enemyToAttack.DeathHandler.KillEnemy();
-                    }
+                    m_combatState = CombatState.ctSNEAK_ATTACK;
+                    m_swordAnim.SetActive(true);
+
+                    Debug.Log("Sword True");
+                    Destroy(enemyToAttack);
+                    ScoreManager.IncreaseScore();
 		        }
 
                 if(m_canTakeDamage == false)
@@ -171,8 +174,9 @@ public class PlayerCombat : MonoBehaviour
 		if(name == "DeathCollider" && m_rig2D.velocity.y < 0.0f)
         {
             Destroy(collider.gameObject.transform.parent.gameObject);
+            ScoreManager.IncreaseScore();
 		}
-        else if(name == "DeathCollider" && m_combatState != CombatState.ctSNEAK_ATTACK)
+        else if(name == "DeathCollider" && m_combatState != CombatState.ctSNEAK_ATTACK && m_playerMovement.GetInsideHayBale() == false)
         {
             PlayerHit(20);
 		}
