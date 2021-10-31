@@ -5,6 +5,7 @@ using UnityEngine;
 public class WorldGenerator : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private TerrainPart startingPart;
     [SerializeField] private List<GameObject> worldPieces = new List<GameObject>();
 
     [SerializeField] private float DISTANCE_FROM_LAST_PART = 1;
@@ -17,7 +18,7 @@ public class WorldGenerator : MonoBehaviour
     private void Start()
     {
         //Setup starting platform
-        lastPartLoaded = worldPieces[0].GetComponent<TerrainPart>();
+        lastPartLoaded = startingPart;
         lastPartEndPosition = lastPartLoaded.endPosition.position;
     }
 
