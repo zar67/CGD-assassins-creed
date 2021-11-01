@@ -17,7 +17,6 @@ public class ScoreManager
     // if true then update text on screen
     static bool m_dirtyScore = false;
 
-
     //Score Functions
     public static void IncreaseScore()
     {
@@ -34,16 +33,19 @@ public class ScoreManager
         Debug.Log("Diffculty : " + m_diffculty.ToString());
         SetScoreDirty(true);
     }
+
     public static void DecreseScore()
     {
         m_score -= m_SCORE_DECREASE;
         SetScoreDirty(true);
     }
+
     public static void ResetScore()
     {
         m_score = 0;
         SetScoreDirty(true);
     }
+
     public static int Score() {return m_score;}
     public static int HighScore(){return m_highScore;}
     public static int Diffculty(){ return m_diffculty;}

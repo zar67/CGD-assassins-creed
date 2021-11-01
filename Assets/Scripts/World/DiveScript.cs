@@ -1,31 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-
 
 public class DiveScript : MonoBehaviour
 {
-
-    public float delay = 5f;
-    private int ammo = 0;
-
-
-    void OnTriggerEnter2D()
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        StartCoroutine("Delaythis");
-        Debug.Log("Destroyed Dive Box");
-    
+        if (collision.gameObject.tag == "Player")
+        {
+            Destroy(gameObject);
+        }
     }
-
-    IEnumerator Delaythis()
-    {
-
-        yield return new WaitForSeconds(delay);
-        Destroy(gameObject);
-
-
-    }
-
-
 }
