@@ -6,6 +6,11 @@ public class AIVisionHandler : MonoBehaviour
 {
     private bool lookingLeft = false;
 
+    public void SetVisibility(bool visible)
+    {
+        gameObject.SetActive(visible);
+    }
+
     public void SetScale(float length)
     {
         transform.localScale = new Vector3(length, transform.localScale.y, transform.localScale.z);

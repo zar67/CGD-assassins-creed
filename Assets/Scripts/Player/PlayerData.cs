@@ -32,7 +32,7 @@ public class PlayerData : MonoBehaviour
 	//Health Functions
 	public void DamageTaken(float _damage)
     {
-        m_health -= _damage;
+        m_health -= _damage;
         FindObjectOfType<SoundManager>().Play("hit_hurt");
         if (IsDead())
             SetPlayerDead();
@@ -40,7 +40,7 @@ public class PlayerData : MonoBehaviour
     public void ResetHealth(){m_health= m_START_HEALTH;}
     public void SetPlayerDead()
     {
-        m_playerState = PlayerState.psDEAD;
+        m_playerState = PlayerState.psDEAD;
         FindObjectOfType<SoundManager>().Play("player_death");
         m_characterAnimator.SetTrigger("Death");
         StartCoroutine(WaitForDeathAnim());

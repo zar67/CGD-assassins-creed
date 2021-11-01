@@ -15,12 +15,29 @@ public class AIViewHandler : MonoBehaviour
     private float actualVision = 4.0f;
     private bool foundPlayer = false;
 
+    public bool HasFoundPlayer()
+    {
+        return foundPlayer;
+    }
+
+    public void ResetOnDeath()
+    {
+        foundPlayer = false;
+        SetVisionVisibility(false);
+        enabled = false;
+    }
 
     public void SetUpHandler(float _stopDistanceWall, float _stopDistPlatform, float _visionPlayer)
     {
         stopDistanceWall = _stopDistanceWall;
         stopDistancePlatform = _stopDistPlatform;
         visionPlayer = _visionPlayer;
+        actualVision = _visionPlayer;
+    }
+
+    public void SetVisionVisibility(bool visible)
+    {
+        VHandler.SetVisibility(visible);
     }
 
     void FixedUpdate()
