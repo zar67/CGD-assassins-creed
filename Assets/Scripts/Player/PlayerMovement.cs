@@ -7,6 +7,9 @@ public class PlayerMovement : MonoBehaviour
 	public const float CEILING_RADIUS = 0.5f;
 	public const float WALL_GRABBING_RADIUS = 0.05f;
 
+	public Component PlayerInput;
+	public Component DiveBox;
+
 	[Header("References")]
 	[SerializeField] private Rigidbody2D m_rigidbody = default;
 	[SerializeField] private Animator m_animator = default;
@@ -19,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
 	[Header("Colliders")]
 	[SerializeField] private BoxCollider2D m_mainCollider = default;
 	[SerializeField] private Collider2D m_hangingCollider = default;
+
 
 	[Header("Movement Configuration Values")]
 	[SerializeField] private float m_runSpeed = 400f;
@@ -46,6 +50,14 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private float m_hangingSpeedMultiplier = 0.5f;
 	[SerializeField] private LayerMask m_whatIsClimbablePlatforms;
 
+
+
+	[Header("Diving Configuration Values")]
+
+	[SerializeField] private float m_diveSpeedMultiplier = 0.1f;
+
+	[SerializeField] private LayerMask m_whatIsDivableArea;
+
 	private bool m_canControl = true;
 	private float m_defaultGravityScale;
 
@@ -61,12 +73,17 @@ public class PlayerMovement : MonoBehaviour
 	private bool m_climbingPressedThisFrame = false;
 
 	private bool m_forceCrouch = false;
-	
+
+
+
 	private bool m_canGrabWall = false;
 	private bool m_isGrabbingWall = false;
 	private float m_wallJumpTimer = 0;
+	private bool m_canDive = false;
+	private bool m_diveOnCooldown = false;
 
 	private bool m_isHanging = false;
+	private bool m_isDiving = false;
 	private Collider2D m_platformHangingOn = null;
 	private bool m_canHangNearby = false;
 
@@ -78,9 +95,12 @@ public class PlayerMovement : MonoBehaviour
     {
 		m_defaultGravityScale = m_rigidbody.gravityScale;
 		m_hangingCollider.enabled = false;
-    }
 
-    public void HandleJumpInput(InputAction.CallbackContext context)
+	}
+
+
+
+	public void HandleJumpInput(InputAction.CallbackContext context)
 	{
 		m_jumpInput = context.ReadValue<float>() > m_jumpInputThreshold;
 		m_jumpInputPressedThisFrame = context.performed;
@@ -104,12 +124,40 @@ public class PlayerMovement : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+
 		// Ground Check
+
 		m_isGrounded = Physics2D.OverlapCircle(m_groundCheck.position, GROUNDED_RADIUS, m_whatIsGround);
 
-		m_isGrounded = m_isGrounded || 
-			(Physics2D.OverlapCircle(m_groundCheck.position, GROUNDED_RADIUS, m_whatIsClimbablePlatforms) && 
+		m_isGrounded = m_isGrounded ||
+
+			(Physics2D.OverlapCircle(m_groundCheck.position, GROUNDED_RADIUS, m_whatIsClimbablePlatforms) &&
+
 			 m_rigidbody.velocity.y <= 0);
+
+
+
+		// Crouch Check
+
+		m_forceCrouch = Physics2D.OverlapCircle(m_ceilingCheck.position, CEILING_RADIUS, m_whatIsGround);
+
+
+
+		// Can Hang Check
+
+		m_canHangNearby = Physics2D.OverlapCircle(m_ceilingCheck.position, CEILING_RADIUS, m_whatIsClimbablePlatforms);
+
+
+
+		// Wall Grabbing Check
+
+		m_canGrabWall = Physics2D.OverlapCircle(m_wallCheck.position, WALL_GRABBING_RADIUS, m_whatIsWall);
+
+
+
+		// Dive Check
+
+		m_canDive = Physics2D.OverlapCircle(m_wallCheck.position, GROUNDED_RADIUS, m_whatIsDivableArea);
 
 		// Crouch Check
 		m_forceCrouch = Physics2D.OverlapCircle(m_ceilingCheck.position, CEILING_RADIUS, m_whatIsGround);
@@ -129,8 +177,8 @@ public class PlayerMovement : MonoBehaviour
 			UpdateWallJumping(ref moveDir);
 			UpdateJumping(ref moveDir);
 			UpdateClimbing(ref moveDir);
-
 			UpdateMovement(moveDir);
+			UpdateDiving(ref moveDir);
 		}
 		else
 		{
@@ -144,7 +192,10 @@ public class PlayerMovement : MonoBehaviour
 
 		UpdateAnimator();
 
+
+
 		// Check if we are facing the right direction
+
 		if ((m_movementInput > 0 && !m_isFacingRight) ||
 			(m_movementInput < 0 && m_isFacingRight))
 		{
@@ -162,6 +213,7 @@ public class PlayerMovement : MonoBehaviour
 		m_animator.SetBool("Crouch", m_crouchingInput || m_forceCrouch);
 		m_animator.SetBool("Hang", m_isHanging);
 		m_animator.SetBool("GrabbingWall", m_isGrabbingWall);
+		m_animator.SetBool("Dive", m_isDiving);
 	}
 
 	private void UpdateCrouching(ref float movement)
@@ -194,6 +246,8 @@ public class PlayerMovement : MonoBehaviour
 			if ((m_isFacingRight && movement > 0) || (!m_isFacingRight && movement < 0))
 			{
 				m_isGrabbingWall = true;
+
+				FindObjectOfType<SoundManager>().Play("wall_slide");
 			}
 		}
 
@@ -204,6 +258,8 @@ public class PlayerMovement : MonoBehaviour
 
 			if (m_jumpInput && m_jumpInputPressedThisFrame)
 			{
+
+				FindObjectOfType<SoundManager>().Play("wall_jump");
 				m_wallJumpTimer = m_wallJumpDuration;
 				m_rigidbody.AddForce(new Vector2(-(m_movementInput * m_jumpForce * 6f), m_jumpForce * m_wallJumpHeightMultiplier));
 				Flip();
@@ -223,6 +279,8 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (m_jumpInput && m_isGrounded)
 		{
+
+			FindObjectOfType<SoundManager>().Play("jump");
 			m_isGrounded = false;
 			m_rigidbody.AddForce(new Vector2(0f, m_jumpForce * 10f));
 		}
@@ -253,10 +311,14 @@ public class PlayerMovement : MonoBehaviour
 			movement *= m_hangingSpeedMultiplier;
 		}
 
+
 		if (m_climbingInput < 0 && m_climbingPressedThisFrame)
 		{
 			if (m_isHanging)
 			{
+
+
+
 				SetCollidersForHanging(false);
 				m_platformHangingOn = null;
 				m_isHanging = false;
@@ -277,15 +339,20 @@ public class PlayerMovement : MonoBehaviour
 				SetCollidersForHanging(false);
 				m_platformHangingOn = null;
 				m_isHanging = false;
-
 				m_rigidbody.AddForce(new Vector2(0f, m_jumpForce));
 			}
 		}
 	}
 
+
+
+
+
 	private void StartHanging(Vector3 colliderCheckPosition, float colliderCheckRadius)
 	{
+
 		// Check For Climbable Platform
+
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(colliderCheckPosition, colliderCheckRadius, m_whatIsClimbablePlatforms);
 
 		if (colliders.Length > 0)
@@ -293,7 +360,13 @@ public class PlayerMovement : MonoBehaviour
 			m_platformHangingOn = colliders[0];
 			SetCollidersForHanging(true);
 			m_isHanging = true;
+
+
+
+			FindObjectOfType<SoundManager>().Play("hang");
 		}
+
+
 	}
 
 	private void SetCollidersForHanging(bool hanging)
@@ -310,4 +383,70 @@ public class PlayerMovement : MonoBehaviour
 		theScale.x *= -1;
 		transform.localScale = theScale;
 	}
+
+
+
+	private void StartDiving(Vector3 colliderCheckPosition, float colliderCheckRadius)
+	{
+
+		// Check For Divable area
+
+		Collider2D[] colliders = Physics2D.OverlapCircleAll(colliderCheckPosition, colliderCheckRadius, m_whatIsDivableArea);
+
+		if (colliders.Length > 0)
+		{
+			m_isDiving = true;
+
+			m_rigidbody.gravityScale = m_defaultGravityScale / m_diveSpeedMultiplier;
+
+			GetPlayerInputComponent(false);
+
+		}
+	}
+
+
+
+
+
+
+
+	private void UpdateDiving(ref float movement)
+
+	{
+
+		if (!m_isGrounded)
+
+		{
+
+			StartDiving(m_groundCheck.position, CEILING_RADIUS);
+
+		}
+
+		else
+
+		{
+
+			m_isDiving = false;
+
+			GetPlayerInputComponent(true);
+
+			m_rigidbody.gravityScale = m_defaultGravityScale;
+
+		}
+
+
+
+	}
+
+	private void GetPlayerInputComponent(bool disable)
+
+	{
+
+		var playerInput = PlayerInput.GetComponent<PlayerInput>();
+
+		playerInput.enabled = disable;
+
+	}
+
+
 }

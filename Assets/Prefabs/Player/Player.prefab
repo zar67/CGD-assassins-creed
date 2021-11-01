@@ -303,6 +303,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c6a166e95626bd47a00f94dfbac2df7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerInput: {fileID: 6283245313134737280}
+  DiveBox: {fileID: 0}
   m_rigidbody: {fileID: 315238575509754797}
   m_animator: {fileID: 6483695081972742365}
   m_groundCheck: {fileID: 6659666982796887723}
@@ -332,6 +334,10 @@ MonoBehaviour:
   m_whatIsClimbablePlatforms:
     serializedVersion: 2
     m_Bits: 2048
+  m_diveSpeedMultiplier: 0.1
+  m_whatIsDivableArea:
+    serializedVersion: 2
+    m_Bits: 0
   m_isGrounded: 0
 --- !u!114 &8883113472526038936
 MonoBehaviour:
@@ -359,6 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_characterAnimator: {fileID: 6483695081972742365}
+  m_scoreTxt: {fileID: 0}
 --- !u!1 &320707397177488300
 GameObject:
   m_ObjectHideFlags: 0

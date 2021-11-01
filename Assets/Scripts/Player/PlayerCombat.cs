@@ -65,7 +65,7 @@ public class PlayerCombat : MonoBehaviour
 			}break;
             case CombatState.ctSNEAK_ATTACK:
             {
-                if (m_currentSneakTimer < m_SNEAK_ANIM_TIMER)
+                    if (m_currentSneakTimer < m_SNEAK_ANIM_TIMER)
                 {
                     m_currentSneakTimer += Time.deltaTime;
                 }
@@ -150,8 +150,10 @@ public class PlayerCombat : MonoBehaviour
        {
             if(col.gameObject.tag == "Enemy" && CheckAIDirection(col.gameObject.GetComponent<AIMovement>()))
             {
+                FindObjectOfType<SoundManager>().Play("enemy_death");
                 return col.gameObject;
-			}
+
+            }
        }
        return null;
     }
