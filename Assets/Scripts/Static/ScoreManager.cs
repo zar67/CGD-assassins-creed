@@ -7,7 +7,8 @@ public class ScoreManager
     static int m_score = 0;
     static int m_highScore = 0;
     static int m_diffculty = 1;
-    const int m_CHANGE_DIFFICULTY_INTERVAL = 100;
+    const int m_FIRST_DIFF_INTERVAL = 30;
+    const int m_CHANGE_DIFFICULTY_INTERVAL = 50;
     static int m_diffcultyScore = 0;
     
     const int m_SCORE_INSCREASE = 10;
@@ -25,8 +26,12 @@ public class ScoreManager
 
         //check diffculty level
         m_diffcultyScore += m_SCORE_INSCREASE;
-        m_diffculty = (m_diffcultyScore % m_CHANGE_DIFFICULTY_INTERVAL == 0) ? m_diffculty++ : m_diffculty;
+        if(m_diffculty == 1)
+            m_diffculty = (m_diffcultyScore % m_FIRST_DIFF_INTERVAL == 0) ? m_diffculty + 1 : m_diffculty;
+        else
+            m_diffculty = (m_diffcultyScore % m_CHANGE_DIFFICULTY_INTERVAL == 0) ? m_diffculty + 1: m_diffculty;
 
+        Debug.Log("Diffculty : " + m_diffculty.ToString());
         SetScoreDirty(true);
     }
     public static void DecreseScore()
