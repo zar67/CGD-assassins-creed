@@ -106,6 +106,9 @@ public class AIMovement : MonoBehaviour
 
     private bool jumped = false;
 
+    private float timeBeforeScoreDecrease = 0.5f;
+    private float tbsdRemaining = 0.0f;
+
     [Header("Overide")]
     public bool OVERRIDE_VALUES = false;
     public bool _VISIONVISIBLE = true;
@@ -186,6 +189,13 @@ public class AIMovement : MonoBehaviour
     {
         if (playerFound)
         {
+            tbsdRemaining -= Time.deltaTime;
+            Debug.Log(tbsdRemaining);
+            if (tbsdRemaining < 0)
+            {
+                tbsdRemaining = timeBeforeScoreDecrease;
+                ScoreManager.DecreseScore();
+            }
             MovementWhenFoundPlayer();
         }
         else
@@ -225,16 +235,6 @@ public class AIMovement : MonoBehaviour
         }
 
         UpdateMovement((movingLeft ? -1 : 1) * playerFoundSpeed * Time.deltaTime);
-
-        //if (!viewHandlerBottom.HasFoundPlayer() && viewHandlerTop.HasFoundPlayer())
-        //{
-        //    if (floorCheck.TouchingFloor() && !jumped)
-        //    {
-        //        jumped = true;
-        //        m_rigidbody.constraints = RigidbodyConstraints2D.None;
-        //        m_rigidbody.AddForce(new Vector2((movingLeft ? -50f : 50f), m_jumpForce * 10f));
-        //    }
-        //}
     }
 
     void NormalMovement()

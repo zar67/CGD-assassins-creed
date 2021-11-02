@@ -12,7 +12,7 @@ public class ScoreManager
     static int m_diffcultyScore = 0;
     
     const int m_SCORE_INSCREASE = 10;
-    const int m_SCORE_DECREASE = 10;
+    const int m_SCORE_DECREASE = 1;
 
     // if true then update text on screen
     static bool m_dirtyScore = false;

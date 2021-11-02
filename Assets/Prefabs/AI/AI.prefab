@@ -173,15 +173,15 @@ MonoBehaviour:
   difficultyEvolution:
     difficultyEvolutions:
     - parameter: 0
-      maxDifficultyValue: 100
+      maxDifficultyValue: 50
       minValue: 180
       maxValue: 350
     - parameter: 1
-      maxDifficultyValue: 100
+      maxDifficultyValue: 50
       minValue: 300
       maxValue: 600
     - parameter: 2
-      maxDifficultyValue: 50
+      maxDifficultyValue: 25
       minValue: 0.6
       maxValue: 0.1
     - parameter: 3
@@ -189,14 +189,14 @@ MonoBehaviour:
       minValue: 3
       maxValue: 11
     - parameter: 4
-      maxDifficultyValue: 50
+      maxDifficultyValue: 25
       minValue: 3
       maxValue: 0
     - parameter: 5
-      maxDifficultyValue: 100
+      maxDifficultyValue: 50
       minValue: 0
       maxValue: 0.9
-  inviseVisionDifficulty: 20
+  inviseVisionDifficulty: 15
   killable: 1
   killableColor: {r: 0.6226415, g: 0.06755074, b: 0.06755074, a: 1}
   unkillableColor: {r: 0, g: 0, b: 0.2627451, a: 1}
