@@ -14,6 +14,7 @@ public class AIMovement : MonoBehaviour
         TIME_BFR_RUSHING_PLAYER,
         VISION_DISTANCE,
         TIME_BFR_FLIPPING,
+        UNKILLABLE
     }
 
     [Serializable] struct ValueEvolution
@@ -26,8 +27,6 @@ public class AIMovement : MonoBehaviour
         public float GetCurrentValue(int currentDifficulty)
         {
             float d = (float)currentDifficulty / maxDifficultyValue;
-            Debug.Log("C: " + currentDifficulty.ToString() + " MD: " + maxDifficultyValue.ToString() + " D: " + d.ToString());
-
             if (d > 1) d = 1;
 
             return minValue + ((maxValue - minValue) * d);
@@ -59,6 +58,7 @@ public class AIMovement : MonoBehaviour
 
     [Header("Difficulty")]
     [SerializeField] private DifficultyEvolution difficultyEvolution;
+    [SerializeField] private int inviseVisionDifficulty = 20;
     [SerializeField] private bool killable = true;
     [SerializeField] private Color killableColor = default; 
     [SerializeField] private Color unkillableColor = default;
@@ -90,7 +90,7 @@ public class AIMovement : MonoBehaviour
     [SerializeField] private float stopDistancePlatform = 1.0f;
     private float visionPlayer = 5.5f;
 
-    private int difficulty = 0;
+    public int difficulty = 0;
 
     private Vector3 m_velocity = Vector3.zero;
 
@@ -106,8 +106,8 @@ public class AIMovement : MonoBehaviour
 
     private bool jumped = false;
 
-    [Header("Debug")]
-    public bool USEDEBUGVALUES = false;
+    [Header("Overide")]
+    public bool OVERRIDE_VALUES = false;
     public bool _VISIONVISIBLE = true;
     public int _DIFF = 0;
     public bool _KILLABLE = false;
@@ -153,6 +153,7 @@ public class AIMovement : MonoBehaviour
         timeBfrRushingPlayer = difficultyEvolution.GetValueOfParameter(difficulty, DifficultyParameter.TIME_BFR_RUSHING_PLAYER);
         timeBeforeFlipping = difficultyEvolution.GetValueOfParameter(difficulty, DifficultyParameter.TIME_BFR_FLIPPING);
         visionPlayer = difficultyEvolution.GetValueOfParameter(difficulty, DifficultyParameter.VISION_DISTANCE);
+        SetKillable(difficultyEvolution.GetValueOfParameter(difficulty, DifficultyParameter.UNKILLABLE) < UnityEngine.Random.Range(0.1f, 1.0f));
 
         timeBeforeFlippingRemaining = timeBeforeFlipping;
         timeBeforeRushRemaining = timeBfrRushingPlayer;
@@ -160,7 +161,7 @@ public class AIMovement : MonoBehaviour
         viewHandlerBottom.SetUpHandler(stopDistanceWall, stopDistancePlatform, visionPlayer);
         viewHandlerTop.SetUpHandler(stopDistanceWall, stopDistancePlatform, visionPlayer);
 
-        Debug.Log(visionPlayer);
+        SetVisionVisibility(difficulty < inviseVisionDifficulty);
     }
 
     #endregion
@@ -168,14 +169,16 @@ public class AIMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (USEDEBUGVALUES)
+        if (OVERRIDE_VALUES)
         {
-            difficulty = _DIFF;
+            SetDifficulty(_DIFF);
             SetVisionVisibility(_VISIONVISIBLE);
-            killable = _KILLABLE;
+            SetKillable(_KILLABLE);
         }
-        SetDifficultyParameters();
-        SetKillable(killable);
+        else
+        {
+            SetDifficulty(ScoreManager.Diffculty());
+        }
     }
 
     // Update is called once per frame

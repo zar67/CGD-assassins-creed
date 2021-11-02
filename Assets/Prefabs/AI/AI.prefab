@@ -181,17 +181,22 @@ MonoBehaviour:
       minValue: 300
       maxValue: 600
     - parameter: 2
-      maxDifficultyValue: 25
+      maxDifficultyValue: 50
       minValue: 0.6
       maxValue: 0.1
     - parameter: 3
-      maxDifficultyValue: 100
+      maxDifficultyValue: 50
       minValue: 3
-      maxValue: 20
+      maxValue: 11
     - parameter: 4
-      maxDifficultyValue: 100
+      maxDifficultyValue: 50
       minValue: 3
       maxValue: 0
+    - parameter: 5
+      maxDifficultyValue: 100
+      minValue: 0
+      maxValue: 0.9
+  inviseVisionDifficulty: 20
   killable: 1
   killableColor: {r: 0.6226415, g: 0.06755074, b: 0.06755074, a: 1}
   unkillableColor: {r: 0, g: 0, b: 0.2627451, a: 1}
@@ -209,7 +214,8 @@ MonoBehaviour:
   m_jumpForce: 400
   stopDistanceWall: 3
   stopDistancePlatform: 1
-  USEDEBUGVALUES: 0
+  difficulty: 0
+  OVERRIDE_VALUES: 0
   _VISIONVISIBLE: 1
   _DIFF: 1
   _KILLABLE: 1
