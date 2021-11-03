@@ -3,10 +3,10 @@ using UnityEngine;
 public class PlayerCamera : MonoBehaviour
 {
     [SerializeField] private Camera m_mainCamera = default;
-    [SerializeField] private float m_movementSpeed = 15.0f;
-    [SerializeField] private float m_minMovementSpeed = 10.0f;
-    [SerializeField] private float m_maxMovementSpeed = 25.0f;
-    [SerializeField] private float m_difficultyMultiplier = 0.2f;
+    [SerializeField] private float m_movementSpeed = 8.0f;
+    [SerializeField] private float m_minMovementSpeed = 3.0f;
+    [SerializeField] private float m_maxMovementSpeed = 10.0f;
+    [SerializeField] private float m_difficultyMultiplier = 0.1f;
 
     private void Update()
     {

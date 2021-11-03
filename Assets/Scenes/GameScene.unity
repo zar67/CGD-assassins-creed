@@ -321,10 +321,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_mainCamera: {fileID: 964196860}
-  m_movementSpeed: 15
-  m_minMovementSpeed: 2.5
-  m_maxMovementSpeed: 25
-  m_difficultyMultiplier: 0.02
+  m_movementSpeed: 8
+  m_minMovementSpeed: 3
+  m_maxMovementSpeed: 10
+  m_difficultyMultiplier: 0.1
 --- !u!114 &964196863
 MonoBehaviour:
   m_ObjectHideFlags: 0
