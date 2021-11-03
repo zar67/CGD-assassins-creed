@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
@@ -188,10 +187,14 @@ public class PlayerCombat : MonoBehaviour
     // only kills enemy if enemy is killable
     bool TryKillEnemy(GameObject enemy)
     {
-        if (!enemy.GetComponent<AIMovement>().IsKillable()) return false;
+        AIMovement aiMovement = enemy.GetComponent<AIMovement>();
 
-        Destroy(enemy);
+        if (aiMovement == null || !enemy.GetComponent<AIMovement>().IsKillable())
+        {
+            return false;
+        }
+
+        aiMovement.DeathHandler.KillEnemy();
         return true;
     }
-
 }
