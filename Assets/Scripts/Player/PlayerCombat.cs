@@ -20,7 +20,6 @@ public class PlayerCombat : MonoBehaviour
         ctIDLE = 0,
         ctSNEAK_ATTACK = 1, //when you are behind an enemey
         ctJUMP_ATTACK = 2, //when jumping on eneny
-        ctATTACKING = 3
     }
     CombatState m_combatState = CombatState.ctIDLE;
 
@@ -28,7 +27,6 @@ public class PlayerCombat : MonoBehaviour
     const uint m_SCORE_INCREMENT = 25;
     const float m_SNEAK_ANIM_TIMER = 0.5f; // cant take damage once taken damage for x amount of time
     float m_currentSneakTimer = 0.0f;
-
 
     private void Start()
     {
@@ -48,19 +46,13 @@ public class PlayerCombat : MonoBehaviour
                     if (enemyToAttack != null && TryKillEnemy(enemyToAttack))
                     {
                         m_combatState = CombatState.ctSNEAK_ATTACK;
-                        m_swordAnim.SetActive(true);
-
-                        Debug.Log("Sword True");
                         ScoreManager.IncreaseScore();
                     }
 
                     if (m_canTakeDamage == false)
+                    {
                         FlashPlayer();
-                }
-                break;
-            case CombatState.ctJUMP_ATTACK:
-                {
-                    //m_combatState = CombatState.ctIDLE;
+                    }
                 }
                 break;
             case CombatState.ctSNEAK_ATTACK:
@@ -71,37 +63,12 @@ public class PlayerCombat : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Sword False");
-                        m_swordAnim.SetActive(false);
                         m_combatState = CombatState.ctIDLE;
                         m_currentSneakTimer = 0;
                     }
                 }
                 break;
-            case CombatState.ctATTACKING:
-                {
-
-                }
-                break;
         }
-    }
-
-    IEnumerator SneakAttackAnimtimer()
-    {
-        print("START ANIM");
-        if (m_currentSneakTimer < m_SNEAK_ANIM_TIMER)
-        {
-            m_currentSneakTimer += Time.deltaTime;
-            //m_combatState = CombatState.ctIDLE;
-        }
-        else
-        {
-            m_swordAnim.SetActive(false);
-            m_currentSneakTimer = 0;
-        }
-        print("END ANIM");
-
-        yield return new WaitForSeconds(0.1f);
     }
 
     public void PlayerHit(float _damage)
@@ -172,11 +139,14 @@ public class PlayerCombat : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         string name = collider.gameObject.name;
-        //Debug.Log("Player Hit : " + name);
+        AIMovement aiMovement = collider.gameObject.transform.parent.gameObject.GetComponent<AIMovement>();
         //if hit enemy and velocity.y = -1 then you jumped on it
-        if (name == "DeathCollider" && m_rig2D.velocity.y < 0.0f)
+        if (name == "DeathCollider" && m_rig2D.velocity.y < 0.0f && !aiMovement.HasSeenPlayer())
         {
-            if (TryKillEnemy(collider.gameObject.transform.parent.gameObject)) ScoreManager.IncreaseScore();
+            if (TryKillEnemy(aiMovement.gameObject))
+            {
+                ScoreManager.IncreaseScore();
+            }
         }
         else if (name == "DeathCollider" && m_combatState != CombatState.ctSNEAK_ATTACK && m_playerMovement.GetInsideHayBale() == false)
         {
@@ -194,7 +164,20 @@ public class PlayerCombat : MonoBehaviour
             return false;
         }
 
-        aiMovement.DeathHandler.KillEnemy();
+        if (!aiMovement.DeathHandler.IsDying)
+        {
+            aiMovement.DeathHandler.KillEnemy();
+            m_swordAnim.SetActive(false);
+            m_swordAnim.SetActive(true);
+            StartCoroutine(WaitForSwordFinish());
+        }
+        
         return true;
+    }
+
+    IEnumerator WaitForSwordFinish()
+    {
+        yield return new WaitForSeconds(0.4f);
+        m_swordAnim.SetActive(false);
     }
 }
