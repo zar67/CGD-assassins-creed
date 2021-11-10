@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
 	public const float GROUNDED_RADIUS = 0.05f;
-	public const float CEILING_RADIUS = 0.5f;
+	public const float CEILING_RADIUS = 0.3f;
 	public const float WALL_GRABBING_RADIUS = 0.05f;
 
 	[Header("References")]
