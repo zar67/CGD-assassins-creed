@@ -304,7 +304,7 @@ public class PlayerMovement : MonoBehaviour
 				SetCollidersForHanging(false);
 				m_platformHangingOn = null;
 				m_isHanging = false;
-				m_rigidbody.AddForce(new Vector2(0f, m_jumpForce * 10));
+				m_rigidbody.AddForce(new Vector2(0f, m_jumpForce * 12));
 			}
 		}
 	}
