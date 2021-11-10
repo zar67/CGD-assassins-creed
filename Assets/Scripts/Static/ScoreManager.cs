@@ -43,6 +43,7 @@ public class ScoreManager
     public static void ResetScore()
     {
         m_score = 0;
+        m_diffculty = 1;
         SetScoreDirty(true);
     }
 
