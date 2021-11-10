@@ -463,6 +463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_mainCamera: {fileID: 964196860}
   m_playerTransform: {fileID: 1817072022}
+  m_smoothingSpeed: 0.125
   m_movementSpeed: 8
   m_minMovementSpeed: 3
   m_maxMovementSpeed: 10
@@ -614,6 +615,10 @@ PrefabInstance:
       propertyPath: m_soundManager
       value: 
       objectReference: {fileID: 964196863}
+    - target: {fileID: 364340460411831101, guid: 2f9d3ebe19ffd0f4aa3ccc21b8b0fc60, type: 3}
+      propertyPath: m_movementSmoothingAmount
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 7733467291452284345, guid: 2f9d3ebe19ffd0f4aa3ccc21b8b0fc60, type: 3}
       propertyPath: m_scoreTxt
       value: 
@@ -1181,10 +1186,6 @@ PrefabInstance:
     - target: {fileID: 1584236005599368990, guid: fd352424127ad3045a72144f6fd42a4e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8147081085824720875, guid: fd352424127ad3045a72144f6fd42a4e, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd352424127ad3045a72144f6fd42a4e, type: 3}
