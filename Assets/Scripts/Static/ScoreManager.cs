@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ScoreManager
@@ -11,32 +9,28 @@ public class ScoreManager
     const int m_CHANGE_DIFFICULTY_INTERVAL = 50;
     static int m_diffcultyScore = 0;
     
-    const int m_SCORE_INSCREASE = 10;
-    const int m_SCORE_DECREASE = 1;
-
     // if true then update text on screen
     static bool m_dirtyScore = false;
 
     //Score Functions
-    public static void IncreaseScore()
+    public static void IncreaseScore(int scoreIncrease)
     {
-        m_score += m_SCORE_INSCREASE;
+        m_score += scoreIncrease;
         m_highScore = (m_score > m_highScore) ? m_score : m_highScore;
 
         //check diffculty level
-        m_diffcultyScore += m_SCORE_INSCREASE;
+        m_diffcultyScore += scoreIncrease;
         if(m_diffculty == 1)
             m_diffculty = (m_diffcultyScore % m_FIRST_DIFF_INTERVAL == 0) ? m_diffculty + 1 : m_diffculty;
         else
             m_diffculty = (m_diffcultyScore % m_CHANGE_DIFFICULTY_INTERVAL == 0) ? m_diffculty + 1: m_diffculty;
 
-        Debug.Log("Diffculty : " + m_diffculty.ToString());
         SetScoreDirty(true);
     }
 
-    public static void DecreseScore()
+    public static void DecreseScore(int scoreDecrease)
     {
-        m_score -= m_SCORE_DECREASE;
+        m_score -= scoreDecrease;
         SetScoreDirty(true);
     }
 

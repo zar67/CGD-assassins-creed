@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] private GameObject m_swordAnim;
+    [SerializeField] private int m_scoreOnKillEnemy = 10;
 
     Rigidbody2D m_rig2D;
     PlayerData m_playerData;
@@ -46,7 +47,7 @@ public class PlayerCombat : MonoBehaviour
                     if (enemyToAttack != null && TryKillEnemy(enemyToAttack))
                     {
                         m_combatState = CombatState.ctSNEAK_ATTACK;
-                        ScoreManager.IncreaseScore();
+                        ScoreManager.IncreaseScore(m_scoreOnKillEnemy);
                     }
 
                     if (m_canTakeDamage == false)
@@ -145,7 +146,7 @@ public class PlayerCombat : MonoBehaviour
         {
             if (TryKillEnemy(aiMovement.gameObject))
             {
-                ScoreManager.IncreaseScore();
+                ScoreManager.IncreaseScore(m_scoreOnKillEnemy);
             }
         }
         else if (name == "DeathCollider" && m_combatState != CombatState.ctSNEAK_ATTACK && m_playerMovement.GetInsideHayBale() == false)

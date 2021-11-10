@@ -56,6 +56,9 @@ public class AIMovement : MonoBehaviour
 
     #region Variables
 
+    [Header("Score")]
+    [SerializeField] private int m_scoreDecreaseOnSeen = 1;
+
     [Header("Difficulty")]
     [SerializeField] private DifficultyEvolution difficultyEvolution;
     [SerializeField] private int inviseVisionDifficulty = 20;
@@ -190,11 +193,10 @@ public class AIMovement : MonoBehaviour
         if (playerFound)
         {
             tbsdRemaining -= Time.deltaTime;
-            Debug.Log(tbsdRemaining);
             if (tbsdRemaining < 0)
             {
                 tbsdRemaining = timeBeforeScoreDecrease;
-                ScoreManager.DecreseScore();
+                ScoreManager.DecreseScore(m_scoreDecreaseOnSeen);
             }
             MovementWhenFoundPlayer();
         }
