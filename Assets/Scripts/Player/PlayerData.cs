@@ -51,7 +51,7 @@ public class PlayerData : MonoBehaviour
 
     private IEnumerator WaitForDeathAnim()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(2.0f);
         SceneControl.LoadGameOver();
     }
 }
