@@ -303,6 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c6a166e95626bd47a00f94dfbac2df7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_soundManager: {fileID: 0}
   m_rigidbody: {fileID: 315238575509754797}
   m_animator: {fileID: 6483695081972742365}
   m_groundCheck: {fileID: 6659666982796887723}
@@ -336,7 +337,6 @@ MonoBehaviour:
   m_whatIsDivableArea:
     serializedVersion: 2
     m_Bits: 4096
-  m_canControl: 1
 --- !u!114 &8883113472526038936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_swordAnim: {fileID: 9216247878378608637}
+  m_scoreOnKillEnemy: 10
 --- !u!114 &7733467291452284345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,6 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_characterAnimator: {fileID: 6483695081972742365}
+  m_playerMovement: {fileID: 364340460411831101}
   m_scoreTxt: {fileID: 0}
 --- !u!1 &320707397177488300
 GameObject:

@@ -52,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private LayerMask m_whatIsDivableArea;
 
 	private bool m_canControl = true;
+	private bool m_isDead = false;
+
 	private float m_defaultGravityScale;
 
 	private bool m_isGrounded = false;
@@ -83,10 +85,11 @@ public class PlayerMovement : MonoBehaviour
 
 	public void SetInsideHayBale(bool _value) {m_insideHayBale = _value;}
 
-    private void Awake()
-    {
-		m_defaultGravityScale = m_rigidbody.gravityScale;
-		m_hangingCollider.enabled = false;
+	public void HandleCharacterDeath()
+	{
+		m_canControl = false;
+		m_isDead = true;
+		m_rigidbody.velocity = Vector2.zero;
 	}
 
 	public void HandleJumpInput(InputAction.CallbackContext context)
@@ -110,9 +113,19 @@ public class PlayerMovement : MonoBehaviour
 	{
 		m_movementInput = context.ReadValue<float>();
 	}
+	private void Awake()
+	{
+		m_defaultGravityScale = m_rigidbody.gravityScale;
+		m_hangingCollider.enabled = false;
+	}
 
 	private void FixedUpdate()
 	{
+		if (m_isDead)
+		{
+			return;
+		}
+
 		// Ground Check
 		m_isGrounded = Physics2D.OverlapCircle(m_groundCheck.position, GROUNDED_RADIUS, m_whatIsGround);
 
@@ -191,19 +204,16 @@ public class PlayerMovement : MonoBehaviour
 	{
 		bool crouch = m_crouchingInput || m_forceCrouch;
 
-		if (m_isGrounded || m_canAirControl)
+		if (crouch)
 		{
-			if (crouch)
-			{
-				movement *= m_crouchSpeedMultiplier;
-				m_mainCollider.size = new Vector2(1, 0.9f);
-				m_mainCollider.offset = new Vector2(0, -0.55f);
-			}
-			else
-			{
-				m_mainCollider.size = new Vector2(1, 1.9f);
-				m_mainCollider.offset = new Vector2(0, -0.06f);
-			}
+			movement *= m_crouchSpeedMultiplier;
+			m_mainCollider.size = new Vector2(1, 0.9f);
+			m_mainCollider.offset = new Vector2(0, -0.55f);
+		}
+		else
+		{
+			m_mainCollider.size = new Vector2(1, 1.9f);
+			m_mainCollider.offset = new Vector2(0, -0.06f);
 		}
 	}
 

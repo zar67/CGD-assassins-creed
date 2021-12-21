@@ -24,7 +24,7 @@ public class PlayerCombat : MonoBehaviour
     }
     CombatState m_combatState = CombatState.ctIDLE;
 
-    const float m_SNEAK_ATTACK_RANGE = 2.0f;
+    const float m_SNEAK_ATTACK_RANGE = 1.9f;
     const uint m_SCORE_INCREMENT = 25;
     const float m_SNEAK_ANIM_TIMER = 0.5f; // cant take damage once taken damage for x amount of time
     float m_currentSneakTimer = 0.0f;
@@ -118,9 +118,14 @@ public class PlayerCombat : MonoBehaviour
         Collider2D[] allColliders = Physics2D.OverlapCircleAll(gameObject.transform.position, m_SNEAK_ATTACK_RANGE);
         foreach (var col in allColliders)
         {
+            if (Mathf.Abs(col.transform.position.y - transform.position.y) > 0.49f)
+            {
+                continue;
+            }
+
             if (col.gameObject.tag == "Enemy" && col.gameObject.GetComponent<AIMovement>().IsKillable() && CheckAIDirection(col.gameObject.GetComponent<AIMovement>()))
             {
-                FindObjectOfType<SoundManager>().Play("enemy_death");
+                SoundManager.instance.Play("enemy_death");
                 return col.gameObject;
             }
         }
@@ -149,7 +154,10 @@ public class PlayerCombat : MonoBehaviour
                 ScoreManager.IncreaseScore(m_scoreOnKillEnemy);
             }
         }
-        else if (name == "DeathCollider" && m_combatState != CombatState.ctSNEAK_ATTACK && m_playerMovement.GetInsideHayBale() == false)
+        else if (name == "DeathCollider" && 
+                 m_combatState != CombatState.ctSNEAK_ATTACK && 
+                 m_playerMovement.GetInsideHayBale() == false && 
+                 !collider.GetComponent<AIDeathHandler>().IsDying)
         {
             PlayerHit(20);
         }
@@ -160,18 +168,17 @@ public class PlayerCombat : MonoBehaviour
     {
         AIMovement aiMovement = enemy.GetComponent<AIMovement>();
 
-        if (aiMovement == null || !enemy.GetComponent<AIMovement>().IsKillable())
+        if (aiMovement == null || 
+            !enemy.GetComponent<AIMovement>().IsKillable() ||
+            aiMovement.DeathHandler.IsDying)
         {
             return false;
         }
 
-        if (!aiMovement.DeathHandler.IsDying)
-        {
-            aiMovement.DeathHandler.KillEnemy();
-            m_swordAnim.SetActive(false);
-            m_swordAnim.SetActive(true);
-            StartCoroutine(WaitForSwordFinish());
-        }
+        aiMovement.DeathHandler.KillEnemy();
+        m_swordAnim.SetActive(false);
+        m_swordAnim.SetActive(true);
+        StartCoroutine(WaitForSwordFinish());
         
         return true;
     }
