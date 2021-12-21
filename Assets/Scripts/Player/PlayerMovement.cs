@@ -204,19 +204,16 @@ public class PlayerMovement : MonoBehaviour
 	{
 		bool crouch = m_crouchingInput || m_forceCrouch;
 
-		if (m_isGrounded || m_canAirControl)
+		if (crouch)
 		{
-			if (crouch)
-			{
-				movement *= m_crouchSpeedMultiplier;
-				m_mainCollider.size = new Vector2(1, 0.9f);
-				m_mainCollider.offset = new Vector2(0, -0.55f);
-			}
-			else
-			{
-				m_mainCollider.size = new Vector2(1, 1.9f);
-				m_mainCollider.offset = new Vector2(0, -0.06f);
-			}
+			movement *= m_crouchSpeedMultiplier;
+			m_mainCollider.size = new Vector2(1, 0.9f);
+			m_mainCollider.offset = new Vector2(0, -0.55f);
+		}
+		else
+		{
+			m_mainCollider.size = new Vector2(1, 1.9f);
+			m_mainCollider.offset = new Vector2(0, -0.06f);
 		}
 	}
 
