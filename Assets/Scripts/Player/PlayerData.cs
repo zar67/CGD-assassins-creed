@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerData : MonoBehaviour
 {
     [SerializeField] private Animator m_characterAnimator;
+    [SerializeField] private PlayerMovement m_playerMovement;
     [SerializeField] private TMPro.TextMeshProUGUI m_scoreTxt;
 
     const float m_START_HEALTH = 1.0f;
@@ -44,9 +45,13 @@ public class PlayerData : MonoBehaviour
 
         FindObjectOfType<SoundManager>().Play("player_death");
         m_characterAnimator.SetTrigger("Death");
+        m_playerMovement.HandleCharacterDeath();
+        Camera.main.GetComponent<PlayerCamera>().EnableTutorialCamera();
         StartCoroutine(WaitForDeathAnim());
     }
+
     private void SetPlayerAlive(){m_playerState = PlayerState.psALIVE;}
+
     private bool IsDead(){return m_health <= 0.0f;}
 
     private IEnumerator WaitForDeathAnim()

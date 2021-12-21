@@ -24,10 +24,23 @@ public class PlayerCamera : MonoBehaviour
         m_tutorialCamera = false;
     }
 
+    public void EnableTutorialCamera()
+    {
+        m_tutorialCamera = true;
+
+        Vector3 position = m_playerTransform.position;
+        position.y = m_yPosition;
+        position.z = m_zPosition;
+
+        m_mainCamera.transform.position = position;
+    }
+
     private void Awake()
     {
         m_yPosition = m_mainCamera.transform.position.y;
         m_zPosition = m_mainCamera.transform.position.z;
+
+        EnableTutorialCamera();
     }
 
     private void Update()
