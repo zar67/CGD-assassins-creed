@@ -42,7 +42,7 @@ public class PlayerCamera : MonoBehaviour
         if (m_tutorialCamera)
         {
             Vector3 desiredPosition = m_playerTransform.position;
-            Vector3 position = Vector3.Lerp(m_mainCamera.transform.position, desiredPosition, m_smoothingSpeed);
+            var position = Vector3.Lerp(m_mainCamera.transform.position, desiredPosition, m_smoothingSpeed);
             position.y = m_yPosition;
             position.z = m_zPosition;
 
@@ -52,8 +52,17 @@ public class PlayerCamera : MonoBehaviour
         {
             Vector3 cameraPosition = m_mainCamera.transform.position;
 
-            float movementSpeed = Mathf.Max(m_minMovementSpeed * Time.deltaTime, m_movementSpeed * Time.deltaTime * ScoreManager.Diffculty() * m_difficultyMultiplier);
-            movementSpeed = Mathf.Min(movementSpeed, m_maxMovementSpeed * Time.deltaTime);
+            float movementSpeed = m_movementSpeed * Time.deltaTime * ScoreManager.Diffculty() * m_difficultyMultiplier;
+
+            float playerXOffset = Camera.main.WorldToScreenPoint(m_playerTransform.position).x;
+            playerXOffset /= Screen.width;
+            playerXOffset *= 2;
+            playerXOffset = Mathf.Max(0.0f, playerXOffset);
+
+            movementSpeed *= playerXOffset * 2;
+
+            movementSpeed = Mathf.Max(m_minMovementSpeed * Time.deltaTime, movementSpeed);
+            movementSpeed = Mathf.Min(movementSpeed, m_movementSpeed * Time.deltaTime);
 
             cameraPosition.x += movementSpeed;
             m_mainCamera.transform.position = cameraPosition;
