@@ -168,6 +168,8 @@ public class PlayerMovement : MonoBehaviour
 
 			if (m_isDiving)
 			{
+				m_rigidbody.velocity = new Vector2(0.0f, m_rigidbody.velocity.y);
+
 				if (m_isGrounded)
 				{
 					m_isDiving = false;
@@ -204,9 +206,13 @@ public class PlayerMovement : MonoBehaviour
 	{
 		bool crouch = m_crouchingInput || m_forceCrouch;
 
-		if (crouch)
+		if (crouch || m_insideHayBale)
 		{
 			movement *= m_crouchSpeedMultiplier;
+		}
+
+		if (crouch)
+		{
 			m_mainCollider.size = new Vector2(1, 0.9f);
 			m_mainCollider.offset = new Vector2(0, -0.55f);
 		}
@@ -361,7 +367,7 @@ public class PlayerMovement : MonoBehaviour
 				m_isDiving = true;
 
 				m_rigidbody.gravityScale = m_defaultGravityScale * m_diveSpeedMultiplier;
-				m_rigidbody.velocity = new Vector2(0.0f, 0.0f);
+				m_rigidbody.velocity = new Vector2(0.0f, m_rigidbody.velocity.y);
 				m_canControl = false;
 			}
 		}
